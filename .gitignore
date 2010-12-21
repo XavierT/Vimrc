@@ -1,0 +1,5 @@
+# do not want to commit history of
+# open file on github
+.netrwhist
+
+
