@@ -2,7 +2,7 @@
 "
 " Customized for french keyboard to avoid leaving middle keyboard row
 "   Map Leader is ','
-"   Jump to tag is <C-j>
+"   Jump to tag is fj
 "   Bufexplorer is <Leader>q
 "   'ii' will leave insert or visual mode (as <ESC>)
 "
