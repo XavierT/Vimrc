@@ -51,7 +51,7 @@ set textwidth=80
 set formatoptions=tcqnol     " automatic formatting options
 set smarttab
 set nojoinspaces             " insert only one space after. , ! when using join command J
-set listchars=tab:��,trail:� " Replace tabulation & trailing spaces when using :set list/nolist
+set listchars=tab:··,trail:· " Replace tabulation & trailing spaces when using :set list/nolist
 set list                     " display tabulation, use set no list to remove them
 
 set shiftwidth=4             " used by >>, << and tab.
