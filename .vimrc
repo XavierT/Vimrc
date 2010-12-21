@@ -9,7 +9,7 @@
 "  On Linux          On Windows
 "    .vimrc         --> rename to '_vimrc'
 "    .vim directory --> rename to 'vimfiles'
-"                       Move both to $HOMEi
+"                       Move both to $HOME
 "                       (C:\Documents and Settings\username\)
 "
 " use zM to fold all
@@ -17,7 +17,6 @@
 " see ':help folding' for more information
 "
 " *****************************************************************************
-
 
 " Options
 " ======= {{{1
@@ -49,10 +48,10 @@ endif
 
 " Formattage
 set textwidth=80
-set formatoptions=tcqnol
+set formatoptions=tcqnol     " automatic formatting options
 set smarttab
-set nojoinspaces
-set listchars=tab:>_,trail:_ " Replace tabulation when using :set list/nolist
+set nojoinspaces             " insert only one space after. , ! when using join command J
+set listchars=tab:��,trail:� " Replace tabulation & trailing spaces when using :set list/nolist
 set list                     " display tabulation, use set no list to remove them
 
 set shiftwidth=4             " used by >>, << and tab.
@@ -64,7 +63,7 @@ set ignorecase               " ignore case for search
 set smartcase                " smart case search
 set cursorline               " display a line where the cursor is
 set laststatus=2             " always display status line
-set statusline=%f%m%r%h\ [%L]\ [%{&ff}]\ %y%=[%p%%]\ [line:%05l,col:%02v]
+set statusline=%f%m%r%h\ [%L]\ [%{&ff}]\ %y%=[%p%%]\ [line:%05l,col:%03v]
 "               | | | |    |       |      |    |           |       |
 "               | | | |    |       |      |    |           |       +- column number
 "               | | | |    |       |      |    |           + -- line number
@@ -87,21 +86,22 @@ set wildmenu
 set wildmode=longest:full,full
 set suffixes+=.bak,~,.out
 set wildignore+=*.o,*.toc,*.swp,*.aux,*.log,*.dvi,*.ps,*.exe,*.bin
+set complete-=i   " when using autocomplete do not look into included file because it is too long
+                  " with network file systeim...
 
 " Gadgets Vim
 set pastetoggle=<F10>
 "set confirm
-set showbreak=##      " Display characters at the beginning of a line, if force line return
+set showbreak=##        " Display characters at the beginning of a line, if force line return
 set viminfo='20,\"50
-set showmatch             " show matching ( or { when inserting them
+set showmatch           " show matching ( or { when inserting them
 set showcmd
-set cmdheight=2
-set ruler
+set cmdheight=2         " Two lines for command window (better to display some messages)
 set shortmess=filnxtToO
 set virtualedit=block
 set nostartofline
 set splitright          " when splitting the new window is on right
-set winheight=30
+" set winheight=30
 set incsearch           " incremental search. Search starts when the whole word is typed
 set hlsearch            " Highlight result of search
 set foldmethod=marker   " fold vimrc using {{{ and }}}
@@ -115,16 +115,16 @@ set path=.,./Machine/**3,/usr/include,../include,/usr/local/include,include,
 set nobackup
 
 
-" possibly needed if you use terminal
+" possibly needed if you use terminal to enable use of 256 colors
+" (terminal should also be 256 colors able)
 set t_Co=256
 
 " donbass is a nice theme because it works with vim or gvim
 " for darker environnement use zenburn or wombat
-" colorscheme zenburn
+if has("gui_running")
 " colorscheme looking like default eclipse theme
 " better to work with rest of the team using eclipse
-if has("gui_running")
-    colorscheme zenburn
+    colorscheme eclipse
 else
     colorscheme zenburn
 endif
@@ -155,17 +155,14 @@ endfunction
 if has("gui_running")
     " GUI is running or is about to start.
     " Maximize gvim window.
-    set lines=120 columns=120
+    set lines=120 columns=140
     " Lucida is nice but a bit sharp
     " set guifont=Lucida_Console:h10:cANSI
 
     " Droid Sans does not distinguish between 'zero' and capital 'O'
     " set guifont=Droid_Sans_Mono:h10
-    if has("unix")
-        set guifont=DejaVu\ Sans\ Mono\ 10
-    else
-        set guifont=DejaVu_Sans_Mono:h10:cANSI
-    endif
+    set guifont=DejaVu_Sans_Mono:h10:cANSI
+
     " Display or hide menu when using gVim
     function! ToggleGUICruft()
       if &guioptions==''
@@ -223,8 +220,8 @@ if has("win32")
     let g:fuf_dataDir = "~/vimfiles/vim-fuf-data"
 endif
 
-" default exluded file by fuzzy finder file ope
-"let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|swp)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
+" default excluded file by fuzzy finder file open
+" let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|swp)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
 " exclude 'tools' dir full of useless files
 let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|swp)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|tools|workspace'
 
@@ -252,6 +249,8 @@ noremap <Leader>f :FufFile **/<CR>
 " Quick Grep
 noremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR><CR><C-W>b
 
+" toggle highligh search highlight
+noremap <leader>h :noh<cr>
 
 " remap ESC to ii to avoid leaving the row to leave insert mode
 " i to enter insert mode, ii to leave
@@ -262,13 +261,51 @@ snoremap ii <Esc>
 " CTRL+] is broken with Cygwin...
 " so remap :tags <cursor> on something which works
 " anyway ] is not really easy to reach on a french keyboard
-" so j is better
-nmap <silent> <C-j> :exe "ta ".expand("<cword>")<CR>
+" so j (as jump to definition) is better
+noremap fj :exe "ta ".expand("<cword>")<CR>
+
+
+" Moving around quickly between windows
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
+
+" select recently pasted text
+" to use right after 'p' or 'P'
+" equivalent to gv
+" It is using motion `[ and `] to go to the beginning
+" and end of recently modified section
+" getregtype is used to get either v or V if you are copying
+" linewise or blockwise
+nnoremap <expr> gp '`[' . getregtype()[0] . '`]'
+
+" remap move to parent { and }
+" on easier keys
+" previous opening {
+nnoremap � [{
+vnoremap � [{
+" next closing }
+nnoremap _ ]}
+vnoremap _ ]}
+
+" remap begin and end of paragraph
+" on easier keys
+" beginning of paragraph
+nnoremap � {
+vnoremap � {
+" end of paragraph
+nnoremap � }
+vnoremap � }
 
 " Quick Tags Creation
 " additional fields used by omnicompletion plugin
 " noremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q .
+" Create ctags from scratch
 nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude=symTbl.c *.c,*.cpp,*.h,*.rb .
+
+" Refresh ctags with recently edited files
+nnoremap <F7> :bufdo !ctags -a --C++-kinds=+p --fields=+iaS --extra=q  %
 " search first in current directory then file current directory for tag file
 set tags=tags,./tags
 
@@ -279,11 +316,12 @@ set tags=tags,./tags
 "
 " with plugin BufExplorer installed
 " nnoremap � :BufExplorer<CR>
-nnoremap <silent> <Leader>q :BufExplorer<CR>
+nnoremap  <Leader>q :BufExplorer<CR>
 
 " Comment/Uncomment.
-noremap <silent> <Leader>c :<C-B>sil <C-E>s/^/<C-R>=escape(substitute (&comments,'^\(.\{-},\)\?:\([^,]\+\).*','\2',''),'\/')<CR> /<CR>:nohls<CR>
-noremap <silent> <Leader>C :<C-B>sil <C-E>s/^\V<C-R>=escape(substitute (&comments,'^\(.\{-},\)\?:\([^,]\+\).*','\2',''),'\/')<CR> //e<CR>:nohls<CR>
+" use Nerd Commenter plugin instead
+" nnoremap <Leader>c :<C-B>sil <C-E>s/^/<C-R>=escape(substitute (&comments,'^\(.\{-},\)\?:\([^,]\+\).*','\2',''),'\/')<CR> /<CR>:nohls<CR>
+" nnoremap <Leader>c :<C-B>sil <C-E>s/^/<C-R>=escape(substitute (&comments,'^\(.\{-},\)\?:\([^,]\+\).*','\2',''),'\/')<CR> /<CR>:nohls<CR>
 
 if has("win32")
     " Quick .vimrc edit
@@ -300,7 +338,7 @@ if has("unix")
 endif
 
 " Use ` instead of '
-nmap ' `
+"nmap ' `
 
 " To yank whole lines, see :help Y
 nmap Y y$
@@ -394,18 +432,17 @@ endfunction
 " C
 " - {{{2
 
-" Options de formatage a la GNU
-" set cinoptions={.5s:.5sg.5st0(0=.5s
-
-" Format options for RTSW Pos
-set cinoptions={0,:1s,g1s,t0,(0,=.5s
-
-
 function! s:C_options()
-   setlocal noautoindent
-   setlocal nosmartindent
-   setlocal cindent
-   call s:PROG_options()
+    " Options de formatage a la GNU
+    " set cinoptions={.5s:.5sg.5st0(0=.5s
+
+    " Format options for RTSW Pos
+    setlocal cinoptions={0,:1s,g1s,t0,(0,=.5s
+
+    setlocal noautoindent
+    setlocal nosmartindent
+    setlocal cindent
+    call s:PROG_options()
 endfunction
 
 function! s:CPP_options()
