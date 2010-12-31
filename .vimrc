@@ -161,7 +161,14 @@ if has("gui_running")
 
     " Droid Sans does not distinguish between 'zero' and capital 'O'
     " set guifont=Droid_Sans_Mono:h10
-    set guifont=DejaVu_Sans_Mono:h10:cANSI
+
+    " There is a difference in the way linux or windows are
+    " treating this option
+    if has("win32")
+        set guifont=DejaVu_Sans_Mono:h10:cANSI
+    else
+        set guifont=DejaVu\ Sans\ Mono\ 10
+    endif
 
     " Display or hide menu when using gVim
     function! ToggleGUICruft()
