@@ -299,11 +299,11 @@ vnoremap _ ]}
 " remap begin and end of paragraph
 " on easier keys
 " beginning of paragraph
-nnoremap � {
-vnoremap � {
+nnoremap ç {
+vnoremap ç {
 " end of paragraph
-nnoremap � }
-vnoremap � }
+nnoremap à }
+vnoremap à }
 
 " Quick Tags Creation
 " additional fields used by omnicompletion plugin
