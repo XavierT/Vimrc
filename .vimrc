@@ -111,9 +111,9 @@ set switchbuf=useopen
 
 " Path & Files
 " '**5'search subdirectories up to five level deep
-set path=.,./Machine/**3,/usr/include,../include,/usr/local/include,include,
+" `';' allow to search upward until root
+set path+=**3;.,./**3,./Machine/**3
 set nobackup
-
 
 " possibly needed if you use terminal to enable use of 256 colors
 " (terminal should also be 256 colors able)
@@ -277,6 +277,13 @@ noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
+
+" Easier Windows resize
+noremap <C-Down> <C-W>-
+noremap <C-Up> <C-W>+
+noremap <C-Left> <C-W><
+noremap <C-Right> <C-W>>
+
 
 " select recently pasted text
 " to use right after 'p' or 'P'

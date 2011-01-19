@@ -4,7 +4,4 @@
 #ignore generated tag files
 tags
 vim-fuf-data
-
-
-
-
+*.swp
