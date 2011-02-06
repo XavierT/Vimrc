@@ -172,17 +172,17 @@ if has("gui_running")
 
     " Display or hide menu when using gVim
     function! ToggleGUICruft()
-      if &guioptions==''
-        exec('set guioptions=mTrL')
+      if &guioptions=='i'
+        exec('set guioptions=imTrL')
       else
-        exec('set guioptions=')
+        exec('set guioptions=i')
       endif
     endfunction
 
     map <F11> <Esc>:call ToggleGUICruft()<cr>
 
-    " by default, hide gui menus
-    set guioptions=
+    " by default, hide gui menus but keep icon
+    set guioptions=i
 
 endif
 " End GUI options }}}2
@@ -269,8 +269,8 @@ snoremap ii <Esc>
 " so remap :tags <cursor> on something which works
 " anyway ] is not really easy to reach on a french keyboard
 " so j (as jump to definition) is better
-noremap fj :exe "ta ".expand("<cword>")<CR>
-
+"noremap fj :exe "ta ".expand("<cword>")<CR>
+noremap fj <C-]>
 
 " Moving around quickly between windows
 noremap <C-j> <C-W>j
@@ -283,7 +283,6 @@ noremap <C-Down> <C-W>-
 noremap <C-Up> <C-W>+
 noremap <C-Left> <C-W><
 noremap <C-Right> <C-W>>
-
 
 " select recently pasted text
 " to use right after 'p' or 'P'
