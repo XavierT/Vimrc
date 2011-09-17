@@ -248,10 +248,10 @@ let g:mapleader = ","
 let g:maplocalleader = ","
 
 " Taglist plugin mapping
-noremap <silent> <Leader>t :TlistToggle<CR>
+noremap <silent> <Leader>ta :TlistToggle<CR>
 
 " FuzzyFinder plugin mapping
-noremap <Leader>f :FufFile **/<CR>
+noremap <Leader>o :FufFile **/<CR>
 
 " Quick Grep
 noremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR><CR><C-W>b
@@ -301,6 +301,11 @@ vnoremap � [{
 " next closing }
 nnoremap _ ]}
 vnoremap _ ]}
+
+" remap ESC to jk
+nnoremap jk <ESC>
+vnoremap jk <ESC>
+snoremap jk <ESC>
 
 " remap begin and end of paragraph
 " on easier keys
