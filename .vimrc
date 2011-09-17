@@ -220,18 +220,6 @@ let Tlist_Ctags_Cmd = 'ctags'
 let Tlist_Show_One_File = 1
 "let Tlist_Display_Prototype = 1
 
-" Fuzzy Finder plugin
-" on windows put fuzzy finder cache into vim directory
-" default is ~/.vim-fuf-data
-if has("win32")
-    let g:fuf_dataDir = "~/vimfiles/vim-fuf-data"
-endif
-
-" default excluded file by fuzzy finder file open
-" let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|swp)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
-" exclude 'tools' dir full of useless files
-let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|orig|swp)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|tools|workspace'
-
 " Omnicpp complete plugin
 let OmniCpp_ShowPrototypeInAbbr = 1
 
@@ -250,7 +238,7 @@ let g:maplocalleader = ","
 " Taglist plugin mapping
 noremap <silent> <Leader>ta :TlistToggle<CR>
 
-" FuzzyFinder plugin mapping
+" CommandT plugin mapping
 noremap <Leader>o :CommandT <CR>
 
 " Quick Grep
