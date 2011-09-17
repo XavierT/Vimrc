@@ -251,7 +251,7 @@ let g:maplocalleader = ","
 noremap <silent> <Leader>ta :TlistToggle<CR>
 
 " FuzzyFinder plugin mapping
-noremap <Leader>o :FufFile **/<CR>
+noremap <Leader>o :CommandT <CR>
 
 " Quick Grep
 noremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR><CR><C-W>b
