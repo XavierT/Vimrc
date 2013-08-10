@@ -51,7 +51,7 @@ set textwidth=80
 set formatoptions=tcqnol     " automatic formatting options
 set smarttab
 set nojoinspaces             " insert only one space after. , ! when using join command J
-set listchars=tab:··,trail:· " Replace tabulation & trailing spaces when using :set list/nolist
+set listchars=tab:»·,trail:· " Replace tabulation & trailing spaces when using :set list/nolist
 set list                     " display tabulation, use set no list to remove them
 
 set shiftwidth=4             " used by >>, << and tab.
@@ -124,9 +124,9 @@ set t_Co=256
 if has("gui_running")
 " colorscheme looking like default eclipse theme
 " better to work with rest of the team using eclipse
-    colorscheme eclipse
-else
     colorscheme zenburn
+else
+    colorscheme eclipse
 endif
 set highlight+=f-,F-
 
@@ -155,7 +155,7 @@ endfunction
 if has("gui_running")
     " GUI is running or is about to start.
     " Maximize gvim window.
-    set lines=120 columns=140
+    set lines=59 columns=114
     " Lucida is nice but a bit sharp
     " set guifont=Lucida_Console:h10:cANSI
 
@@ -249,9 +249,9 @@ noremap <leader>h :noh<cr>
 
 " remap ESC to ii to avoid leaving the row to leave insert mode
 " i to enter insert mode, ii to leave
-inoremap ii <Esc>
-vnoremap ii <Esc>
-snoremap ii <Esc>
+"inoremap jk <Esc>
+"vnoremap ii <Esc>
+"snoremap ii <Esc>
 
 " CTRL+] is broken with Cygwin...
 " so remap :tags <cursor> on something which works
@@ -290,10 +290,6 @@ vnoremap � [{
 nnoremap _ ]}
 vnoremap _ ]}
 
-" remap ESC to jk
-nnoremap jk <ESC>
-vnoremap jk <ESC>
-snoremap jk <ESC>
 
 " remap begin and end of paragraph
 " on easier keys
@@ -308,7 +304,7 @@ vnoremap à }
 " additional fields used by omnicompletion plugin
 " noremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q .
 " Create ctags from scratch
-nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude=symTbl.c *.c,*.cpp,*.h,*.rb .
+nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude=symTbl.c .
 
 " Refresh ctags with recently edited files
 nnoremap <F7> :bufdo !ctags -a --C++-kinds=+p --fields=+iaS --extra=q  %
