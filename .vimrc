@@ -1,8 +1,8 @@
 " Custom .vimrc
 "
-" Customized for french keyboard to avoid leaving middle keyboard row
+" Customized for French keyboard to avoid leaving middle keyboard row
 "   Map Leader is ','
-"   Jump to tag is fj
+"   Jump to tag is <C-j>
 "   Bufexplorer is <Leader>q
 "   'ii' will leave insert or visual mode (as <ESC>)
 "
@@ -18,11 +18,22 @@
 "
 " *****************************************************************************
 
+
 " Options
 " ======= {{{1
 set nocompatible     " break compatibility with VI but enable a lots of VIM features
 
+set langmenu=en_GB.UTF-8    " sets the language of the menu (gvim)
+"language en                 " sets the language of the messages / ui (vim)
+
+" On Windows, also use ~/.vim instead of ~/vimfiles; this makes synchronization
+" across (heterogeneous) systems easier.
+if has('win32') || has('win64')
+    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+endif
+
 " put every plugin in separate .vim/bundle/[PLUGIN_DIR]
+" filetype must be off before calling pathogen inititialisation
 filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -36,15 +47,21 @@ syntax on
 " General
 " ------- {{{2
 
+
+" Don't save options and mapping
+" between each sessions
+set sessionoptions=blank,buffers,curdir,folds,help,winsize,options
+ 
+
 " Comportement un peu plus cool
 set backspace=2      " allow backspacing on indentation and line break
-set scrolljump=10     " jump 'scrolljump' line when scrolling out of screen with j or k
+"set scrolljump=10     " jump 'scrolljump' line when scrolling out of screen with j or k
+set scrolloff=10      " keep some context when scrolling
 
 
 " to use with cygwin on windows
-if has("win32unix")
-    set encoding=latin1
-endif
+set encoding=utf-8
+set fileencoding=utf-8
 
 " Formattage
 set textwidth=80
@@ -53,6 +70,7 @@ set smarttab
 set nojoinspaces             " insert only one space after. , ! when using join command J
 set listchars=tab:»·,trail:· " Replace tabulation & trailing spaces when using :set list/nolist
 set list                     " display tabulation, use set no list to remove them
+set nowrap                   " by default do no wrap long line, 
 
 set shiftwidth=4             " used by >>, << and tab.
 set tabstop=4                " number of space characters used when displaying TAB
@@ -85,8 +103,8 @@ set autoindent
 set wildmenu
 set wildmode=longest:full,full
 set suffixes+=.bak,~,.out
-set wildignore+=*.o,*.toc,*.swp,*.aux,*.log,*.dvi,*.ps,*.exe,*.bin
-set complete-=i   " when using autocomplete do not look into included file because it is too long
+set wildignore+=*.o,*.toc,*.swp,*.aux,*.log,*.dvi,*.ps,*.exe,*.bin,.git,CVS,*.so,*.debug,*.make,CMakeLists.*,tools,build*xenomai,*.png,*.swf,*.dtd,*.cmake,*.RFL
+set complete-=i   " when using autocomplete do not look into all included file because it is too long
                   " with network file systeim...
 
 " Gadgets Vim
@@ -101,6 +119,7 @@ set shortmess=filnxtToO
 set virtualedit=block
 set nostartofline
 set splitright          " when splitting the new window is on right
+set splitbelow          " when splitting the new window is below 
 " set winheight=30
 set incsearch           " incremental search. Search starts when the whole word is typed
 set hlsearch            " Highlight result of search
@@ -115,6 +134,7 @@ set switchbuf=useopen
 set path+=**3;.,./**3,./Machine/**3
 set nobackup
 
+
 " possibly needed if you use terminal to enable use of 256 colors
 " (terminal should also be 256 colors able)
 set t_Co=256
@@ -124,12 +144,21 @@ set t_Co=256
 if has("gui_running")
 " colorscheme looking like default eclipse theme
 " better to work with rest of the team using eclipse
-    colorscheme zenburn
-else
     colorscheme eclipse
+else
+    colorscheme mac_classic
 endif
 set highlight+=f-,F-
 
+" Persistent undo (new in VIm 7.3)
+" set undodir=~/.vim/undodir
+if (v:version >= 703)
+    set undofile
+    set undolevels=1000 "maximum number of changes that can be undone
+    set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+endif
+
+"
 "
 " End General }}}2
 
@@ -144,6 +173,7 @@ function! s:PROG_options()
    setlocal formatoptions+=rot
    setlocal shortmess-=T
    setlocal shiftwidth=4
+   setlocal iskeyword-={,},[,],(,)
 endfunction
 
 " End Programming }}}2
@@ -155,20 +185,17 @@ endfunction
 if has("gui_running")
     " GUI is running or is about to start.
     " Maximize gvim window.
-    set lines=59 columns=114
+    set lines=120 columns=140
     " Lucida is nice but a bit sharp
     " set guifont=Lucida_Console:h10:cANSI
 
     " Droid Sans does not distinguish between 'zero' and capital 'O'
     " set guifont=Droid_Sans_Mono:h10
+    "
+    "set guifont=DejaVu_Sans_Mono:h10:cANSI
+    " Try out Ubunto mono font
+    set guifont=Ubuntu_Mono:h11:cANSI
 
-    " There is a difference in the way linux or windows are
-    " treating this option
-    if has("win32")
-        set guifont=DejaVu_Sans_Mono:h10:cANSI
-    else
-        set guifont=DejaVu\ Sans\ Mono\ 10
-    endif
 
     " Display or hide menu when using gVim
     function! ToggleGUICruft()
@@ -179,9 +206,25 @@ if has("gui_running")
       endif
     endfunction
 
-    map <F11> <Esc>:call ToggleGUICruft()<cr>
+    if has("win32")
+        " Display or hide menu when using gVim
+        " only works with Windows in French...
+        function! ToggleFullScreen()
+                execute "simalt ~n "
+        endfunction
 
-    " by default, hide gui menus but keep icon
+        function! MinFullScreen()
+                execute "simalt ~r "
+        endfunction
+
+        nmap <F11> <Esc>:call MinFullScreen() <cr>
+        nmap <F12> <Esc>:call ToggleFullScreen() <cr>
+
+    endif
+
+    nmap <F10> <Esc>:call ToggleGUICruft() <cr>
+
+    " by default, hide gui menus
     set guioptions=i
 
 endif
@@ -191,12 +234,15 @@ endif
 " Grep Options
 " ------ {{{2
 if has("gui_running")
-     set grepprg=grep\ -nH\ -R\ --include=*.c\ --include=*.cpp\ --include=*.h\ --exclude=symTbl.c\ $*\ .\ 
+     set grepprg=grep\ -nH\ -R\ --include=*.sm\ --include=*.c\ --include=*.cpp\ --include=*.h\ --exclude-dir=workspace\ --exclude-dir=tools\ --exclude=symTbl.c\ $*\ .\ 
 else
 
 set grepprg=grep\ -nH
 \\--include='*.c'
 \\--include='*.cpp'
+\\--include='*.xml
+\\--include='*.ops'
+\\--include='*.osd'
 \\--include='*.h'
 \\--exclude-dir='.svn'
 \\--exclude='*.svn-base'
@@ -220,8 +266,27 @@ let Tlist_Ctags_Cmd = 'ctags'
 let Tlist_Show_One_File = 1
 "let Tlist_Display_Prototype = 1
 
-" Omnicpp complete plugin
-let OmniCpp_ShowPrototypeInAbbr = 1
+" CtrlP Options
+" Fuzzy search for MRU, buffer, files
+let g:ctrlp_custom_ignore = {
+        \ 'dir': 'workspace,tools',
+        \ }
+
+function! Index_workspace()
+    if has("win32")
+        execute "Start! dir *.c,*.cpp,*.h /s /b > Z:/heroic/file_list.txt"
+    endif
+endfunction
+
+if has("win32")
+    nnoremap <F9> <ESC>:call Index_workspace() <cr>
+    let g:ctrlp_user_command = ['file_list.txt', 'type %s\file_list.txt']
+endif
+
+
+" Syntastic options:
+" Disable for now
+"let g:syntastic_enable_signs=1
 
 " End Plugin }}}2
 
@@ -235,36 +300,63 @@ let OmniCpp_ShowPrototypeInAbbr = 1
 let g:mapleader = ","
 let g:maplocalleader = ","
 
+" To easily copy paste from vim to external app
+" and vice / versa
+set clipboard=unnamed
+
 " Taglist plugin mapping
 noremap <silent> <Leader>ta :TlistToggle<CR>
 
-" CommandT plugin mapping
-noremap <Leader>o :CommandT <CR>
+" FuzzyFinder plugin mapping
+"noremap <Leader>o :FufFile **/<CR>
+
+
+" CtrlP mapping
+noremap <Leader>o :CtrlPCurWD<CR>
+
 
 " Quick Grep
-noremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR><CR><C-W>b
+" open and switch to quickfix window
+noremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR>
 
-" toggle highligh search highlight
+" Version to be used with vim dispatch:
+" does not support jump to file in this version...
+"noremap <Leader>g :Dispatch grep -r --include=*.sm --include=*.c --include=*.cpp --include=*.h --exclude-dir=workspace --exclude-dir=tools --exclude=symTbl.c <space><C-r><C-w> . <CR>
+
+
+" Grep in current buffer only
+" Do not jump to quickfix window
+noremap <Leader>l :vimgrep<space><C-r><C-w><space>%<CR>:g/<C-r><C-w>//<CR>:copen<CR><C-W>t
+
+" toggle highlight search highlight
 noremap <leader>h :noh<cr>
 
-" remap ESC to ii to avoid leaving the row to leave insert mode
-" i to enter insert mode, ii to leave
-"inoremap jk <Esc>
-"vnoremap ii <Esc>
-"snoremap ii <Esc>
+" remap ESC to jk to avoid leaving the row to leave insert mode
+" i to enter insert mode, jk to leave
+" only remap in Insert, because for example in visual mode for
+" line selection jk is pretty common
+inoremap jk <Esc>
+"inoremap <Esc> <NOP>
+" i to enter insert mode, jk to leave
+ 
+" Disable escape to adapt
+"inoremap <Esc> <NOP>
+"vnoremap <Esc> <NOP>
+"snoremap <Esc> <NOP>
 
-" CTRL+] is broken with Cygwin...
 " so remap :tags <cursor> on something which works
 " anyway ] is not really easy to reach on a french keyboard
 " so j (as jump to definition) is better
+"
+" CTRL+] is broken with Cygwin...
 "noremap fj :exe "ta ".expand("<cword>")<CR>
 noremap fj <C-]>
 
 " Moving around quickly between windows
-noremap <C-j> <C-W>j
-noremap <C-k> <C-W>k
-noremap <C-h> <C-W>h
-noremap <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 " Easier Windows resize
 noremap <C-Down> <C-W>-
@@ -284,52 +376,53 @@ nnoremap <expr> gp '`[' . getregtype()[0] . '`]'
 " remap move to parent { and }
 " on easier keys
 " previous opening {
-nnoremap � [{
-vnoremap � [{
+nnoremap à [{
+vnoremap à [{
 " next closing }
-nnoremap _ ]}
-vnoremap _ ]}
-
+nnoremap ç ]}
+vnoremap ç ]}
 
 " remap begin and end of paragraph
 " on easier keys
 " beginning of paragraph
-nnoremap ç {
-vnoremap ç {
+nnoremap _ {
+vnoremap _ {
 " end of paragraph
-nnoremap à }
-vnoremap à }
+nnoremap è }
+vnoremap è }
 
 " Quick Tags Creation
 " additional fields used by omnicompletion plugin
 " noremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q .
 " Create ctags from scratch
-nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude=symTbl.c .
+"nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.rb .
+
+" Using dispatch plugin
+nnoremap <F8> :Start!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.rb .
 
 " Refresh ctags with recently edited files
 nnoremap <F7> :bufdo !ctags -a --C++-kinds=+p --fields=+iaS --extra=q  %
-" search first in current directory then file current directory for tag file
+" search first in current directory then file directory for tag file
 set tags=tags,./tags
 
 " Fast Buffer Switching
-"
-" without plugin BufExplorer installed
-" noremap � :buffers<CR>:buffer<Space>
-"
 " with plugin BufExplorer installed
-" nnoremap � :BufExplorer<CR>
+" nnoremap ² :BufExplorer<CR>
 nnoremap  <Leader>q :BufExplorer<CR>
 
-" Comment/Uncomment.
-" use Nerd Commenter plugin instead
-" nnoremap <Leader>c :<C-B>sil <C-E>s/^/<C-R>=escape(substitute (&comments,'^\(.\{-},\)\?:\([^,]\+\).*','\2',''),'\/')<CR> /<CR>:nohls<CR>
-" nnoremap <Leader>c :<C-B>sil <C-E>s/^/<C-R>=escape(substitute (&comments,'^\(.\{-},\)\?:\([^,]\+\).*','\2',''),'\/')<CR> /<CR>:nohls<CR>
+
+" Save and restore session
+"nnoremap <F2> :mksession! ~/vim_session<CR>
+"nnoremap <F3> :source ~/vim_session<CR>
+
+" toggle spell checking with s
+nmap <silent> <leader>s :setlocal spell!<CR>
 
 if has("win32")
     " Quick .vimrc edit
-    nmap <silent> <Leader>u :e $HOME\_vimrc<CR>
+    nmap <silent> <Leader>u :e $MYVIMRC<CR>
     " Quick .vimrc reload
-    nmap <silent> <Leader>v :so $HOME\_vimrc<CR>
+    nmap <silent> <Leader>v :so $MYVIMRC<CR>
 endif
 
 if has("unix")
@@ -345,27 +438,27 @@ endif
 " To yank whole lines, see :help Y
 nmap Y y$
 
+" To use jk to move up down in pop up menu
+inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+
+" Eclipse like shortcut to switch between header and C file.
+nnoremap <C-TAB> :A<CR>
 
 " Abbreviations
 " ----- {{{2
 
 " Racourcis sympas dans le texte en UTF-8
-" iab ca ça
-" iab Ca �a
-" iab etre être
-" iab etes êtes
-" iab Etes êtes
-" iab tete tête
-" iab meme même
-" iab Meme Même
-iab esle else
-iab teh the
-iab ladate <C-R>=strftime("%A %d %B %Y")<CR>
-iab lheure <C-R>=strftime("%H:%M")<CR>
+inoreabbrev esle else
+inoreabbrev teh the
+inoreabbrev ladate <C-R>=strftime("%A %d %B %Y")<CR>
+inoreabbrev lheure <C-R>=strftime("%H:%M")<CR>
+inoreabbrev thedate <C-R>=strftime("%Y-%m-%d")<CR>
 
 " End Abbreviations }}}2
 
 " End Mapping }}}1
+"
 
 "******************************************************************************
 " Commands
@@ -381,6 +474,15 @@ command! Clearcheckout call s:clearcase_checkout()
 command! Cleardiff call s:clearcase_diff()
 " quick annotation
 command! Clearannotate call s:clearcase_annotate()
+" quick annotation
+command! Clearconfig call s:clearcase_config()
+
+" Task
+" to be used with vim outliner
+command! Task :silent e ~/task.otl
+command! Split normal 30v
+
+
 
 " End Commands }}}1
 
@@ -423,6 +525,11 @@ function! s:clearcase_annotate()
     execute "new "
     execute "read ".filename.".ann"
 endfunction
+
+function! s:clearcase_config()
+    execute "!cleartool edcs "
+endfunction
+
 " End Other }}}2
 
 " End Functions }}}1
@@ -449,6 +556,7 @@ endfunction
 
 function! s:CPP_options()
    call s:C_options()
+   setlocal cinoptions={0,:1s,g1s,t0,(0,=.5s
    setlocal expandtab
    set fo-=o fo-=r
 endfunction
@@ -488,15 +596,26 @@ endfunction
 " --- {{{2
 
 function! s:PYTHON_options()
-   setlocal smartindent
+   setlocal nosmartindent               " this is bad for comments starting with a bang
    setlocal autoindent
    setlocal shiftwidth=4
+   setlocal tabstop=4
+   setlocal softtabstop=4            " will erase 4 spaces at once when using BS in the begining of lines only
    setlocal noexpandtab
    setlocal nolist
 endfunction
 
 " End PYTHON }}}2
 
+" TXT
+" --- {{{2
+
+function! s:TXT_options()
+   setlocal noundofile                "don't want to have temp file every time I open a txt file
+   setlocal spell                     " add spell checker for txt files
+endfunction
+
+" End PYTHON }}}2
 " End file format specific }}}1
 
 " *****************************************************************************
@@ -510,10 +629,90 @@ autocmd BufRead,BufNewFile *.perl,*.pl call s:C_LIKE_options()
 autocmd BufRead,BufNewFile *.xml call s:XML_options()
 autocmd BufRead,BufNewFile *.html call s:HTML_options()
 autocmd BufRead,BufNewFile *.py call s:PYTHON_options()
+autocmd BufRead,BufNewFile *.txt call s:TXT_options()
 " For makefile do not expand tab !
 autocmd BufRead,BufNewFile Makefile*,makefile* setlocal noexpandtab
 
-autocmd User Rails colorscheme wombat
+" To restore session at next startup
+" autocmd VimLeavePre * s:Save_session() 
+" autocmd VimEnter * call s:Restore_session()
+" autocmd SessionLoadPost * syntax on
+
+
+" Spelling auto commands
+"autocmd BufRead,BufNewFile _vimrc setlocal spell
+
+" check spelling of comments / not code ! Very cool
+"autocmd InsertEnter * setlocal spell
+"autocmd InsertLeave * setlocal nospell
+
+" Orocos specific
+autocmd BufRead,BufNewFile *.osd,*.ops set filetype=c
+
+" Vimoutliner filetype
+autocmd BufRead,BufNewFile *.otl set filetype=vo_base
+
+" Maximize gvim windows at startup on Windows
+"if has("win32")
+    "Maximize screen on windows with a french shortcuts...
+    "autocmd GUIEnter * :simalt ~n
+"endif
 
 " End Autocmd }}}1
+"
+"
+
+" *****************************************************************************
+" Management of Large file
+" ======= {{{1
+" Large file are above 10 Mo
+:let g:LargeFile=10
+
+" Protect large files from sourcing and other overhead.
+" Files become read only
+if !exists("my_auto_commands_loaded")
+  let my_auto_commands_loaded = 1
+  " Large files are > 10M
+  " Set options:
+  " eventignore+=FileType (no syntax highlighting etc
+  " assumes FileType always on)
+  " noswapfile (save copy of file)
+  " bufhidden=unload (save memory when other file is viewed)
+  " buftype=nowritefile (is read-only)
+  " undolevels=-1 (no undo possible)
+  let g:LargeFile = 1024 * 1024 * 10
+  augroup LargeFile
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
+    augroup END
+  endif
+" End Large File }}}1
+
+" Test if the task file is already open in VIM
+function s:TaskSwapExists()
+    set wildignore-=*.swp
+
+    let s:exists =  filereadable(expand("$HOME/.task.otl.swp"))
+
+    set wildignore+=*.swp
+
+    return s:exists
+endfunction
+
+command TestF call s:TaskSwapExists()
+
+"Open task
+" if task.otl.swp does not already exists
+if  (argc() == 0)
+    if( s:TaskSwapExists() == 0)
+         Task
+    endif
+endif
+
+" Custom settings to start in working environnement
+" when it is mounted
+" if not stay in current directory
+if isdirectory("Z:\heroic")
+    cd Z:\heroic
+endif
+
 
