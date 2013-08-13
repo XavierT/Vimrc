@@ -194,7 +194,12 @@ if has("gui_running")
     "
     "set guifont=DejaVu_Sans_Mono:h10:cANSI
     " Try out Ubunto mono font
-    set guifont=Ubuntu_Mono:h11:cANSI
+    "
+    if has("win32")
+        set guifont=Ubuntu_Mono:h11:cANSI
+    else
+        set guifont=Ubuntu\ Mono\ 11
+    endif
 
 
     " Display or hide menu when using gVim
