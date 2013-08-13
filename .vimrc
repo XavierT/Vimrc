@@ -144,7 +144,7 @@ set t_Co=256
 if has("gui_running")
 " colorscheme looking like default eclipse theme
 " better to work with rest of the team using eclipse
-    colorscheme eclipse
+    colorscheme zenburn
 else
     colorscheme mac_classic
 endif
