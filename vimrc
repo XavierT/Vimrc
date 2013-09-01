@@ -1,16 +1,12 @@
 " Custom .vimrc
 "
+" Need Vim Version > 7.4
+"
 " Customized for French keyboard to avoid leaving middle keyboard row
 "   Map Leader is ','
 "   Jump to tag is <C-j>
 "   Bufexplorer is <Leader>q
-"   'ii' will leave insert or visual mode (as <ESC>)
 "
-"  On Linux          On Windows
-"    .vimrc         --> rename to '_vimrc'
-"    .vim directory --> rename to 'vimfiles'
-"                       Move both to $HOME
-"                       (C:\Documents and Settings\username\)
 "
 " use zM to fold all
 " use zR to unfold all
@@ -432,9 +428,9 @@ endif
 
 if has("unix")
     " Quick .vimrc edit
-    nmap <silent> <Leader>u :e ~/.vimrc <CR>
+    nmap <silent> <Leader>u :e ~/.vim/vimrc <CR>
     " Quick .vimrc reload
-    nmap <silent> <Leader>v :so ~/.vimrc<CR>
+    nmap <silent> <Leader>v :so ~/.vim/vimrc<CR>
 endif
 
 " Use ` instead of '
