@@ -146,7 +146,7 @@ if has("gui_running")
 " better to work with rest of the team using eclipse
     colorscheme zenburn
 else
-    colorscheme mac_classic
+    colorscheme zenburn
 endif
 set highlight+=f-,F-
 
