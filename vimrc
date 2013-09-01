@@ -128,7 +128,7 @@ set switchbuf=useopen
 " '**5'search subdirectories up to five level deep
 " `';' allow to search upward until root
 set path+=**3;.,./**3,./Machine/**3
-set nobackup
+set nobackup  "I don't know  what backup files are for.
 
 
 " possibly needed if you use terminal to enable use of 256 colors
@@ -136,7 +136,7 @@ set nobackup
 set t_Co=256
 
 " donbass is a nice theme because it works with vim or gvim
-" for darker environnement use zenburn or wombat
+" for darker environnement use zenburn,solarized or wombat
 if has("gui_running")
 " colorscheme looking like default eclipse theme
 " better to work with rest of the team using eclipse
