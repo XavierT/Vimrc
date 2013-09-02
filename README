@@ -1,4 +1,4 @@
- Personal .vimrc file.
+ Personal Vim configuration files.
  
  Customized for french keyboard to avoid leaving middle keyboard row
    Map Leader is ','
@@ -6,12 +6,9 @@
    Bufexplorer is <Leader>q
    'ii' will leave insert or visual mode (as <ESC>)
 
-  .vimrc is stored in .vim
-  To Add a link:
-  ln -s ~/.vim/.vimrc ~/.vimrc
+  vimrc is stored in .vim
 
   On Linux/Cygwin      On Windows
-    .vimrc         --> rename to '_vimrc'
     .vim directory --> rename to 'vimfiles'
                        Move both to $HOME
                        (C:\Documents and Settings\username\)
