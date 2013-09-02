@@ -2,6 +2,8 @@
 "
 " Need Vim Version > 7.4
 "
+" On Windows, renambe Vimrc folder into vimfiles
+"
 " Customized for French keyboard to avoid leaving middle keyboard row
 "   Map Leader is ','
 "   Jump to tag is <C-j>
