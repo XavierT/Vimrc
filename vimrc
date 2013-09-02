@@ -137,18 +137,23 @@ set nobackup  "I don't know  what backup files are for.
 " (terminal should also be 256 colors able)
 set t_Co=256
 
-" donbass is a nice theme because it works with vim or gvim
+"" donbass is a nice theme because it works with vim or gvim
 " for darker environnement use zenburn,solarized or wombat
 if has("gui_running")
-" colorscheme looking like default eclipse theme
-" better to work with rest of the team using eclipse
-"   colorscheme eclipse
-    set background=dark
-    colorscheme solarized
+    if has('win32') || has('win64')
+        " colorscheme looking like default eclipse theme
+        " better to work with rest of the team using eclipse
+         colorscheme eclipse
+    else
+        set background=dark
+        colorscheme solarized
+    endif
 else
     colorscheme zenburn
 endif
+
 set highlight+=f-,F-
+
 
 " Persistent undo (new in VIm 7.3)
 " set undodir=~/.vim/undodir
