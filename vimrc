@@ -26,9 +26,9 @@ set langmenu=en_GB.UTF-8    " sets the language of the menu (gvim)
 
 " On Windows, also use ~/.vim instead of ~/vimfiles; this makes synchronization
 " across (heterogeneous) systems easier.
-if has('win32') || has('win64')
-    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-endif
+"if has('win32') || has('win64')
+"    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+"endif
 
 " put every plugin in separate .vim/bundle/[PLUGIN_DIR]
 " filetype must be off before calling pathogen inititialisation
