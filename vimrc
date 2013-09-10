@@ -135,7 +135,9 @@ set nobackup  "I don't know  what backup files are for.
 
 " possibly needed if you use terminal to enable use of 256 colors
 " (terminal should also be 256 colors able)
-set t_Co=256
+if !has("gui_running")
+    set t_Co=256
+endif
 
 "" donbass is a nice theme because it works with vim or gvim
 " for darker environnement use zenburn,solarized or wombat
@@ -561,6 +563,7 @@ if  (argc() == 0)
          Task
     endif
 endif
+
 " End Functions }}}1
 
 " *****************************************************************************
