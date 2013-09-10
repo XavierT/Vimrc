@@ -154,8 +154,8 @@ else
     colorscheme zenburn
 endif
 
-set highlight+=f-,F-
-
+" Disable syntax highlighting for fold lines
+" set highlight+=f-,F- 
 
 " Persistent undo (new in VIm 7.3)
 " set undodir=~/.vim/undodir
@@ -698,7 +698,7 @@ if !exists("my_auto_commands_loaded")
 " End Large File }}}1
 
 " Test if the task file is already open in VIM
-function s:TaskSwapExists()
+function! s:TaskSwapExists()
     set wildignore-=*.swp
 
     let s:exists =  filereadable(expand("$HOME/.task.otl.swp"))
@@ -708,7 +708,7 @@ function s:TaskSwapExists()
     return s:exists
 endfunction
 
-command TestF call s:TaskSwapExists()
+command! TestF call s:TaskSwapExists()
 
 "Open task
 " if task.otl.swp does not already exists
