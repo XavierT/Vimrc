@@ -2,7 +2,7 @@
 "
 " Need Vim Version > 7.4
 "
-" On Windows, renambe Vimrc folder into vimfiles
+" On Windows, rename Vimrc folder into vimfiles
 "
 " Customized for French keyboard to avoid leaving middle keyboard row
 "   Map Leader is ','
@@ -143,7 +143,9 @@ if has("gui_running")
     if has('win32') || has('win64')
         " colorscheme looking like default eclipse theme
         " better to work with rest of the team using eclipse
-         colorscheme eclipse
+        "set background=light
+        "colorscheme solarized
+        colorscheme eclipse
     else
         set background=dark
         colorscheme solarized
@@ -267,14 +269,10 @@ endif
 " Plugin Configuration
 " ------ {{{2
 
-" Taglist plugin config
-let Tlist_Use_Right_Window = 1
-let Tlist_Inc_Winwidth = 0
-let Tlist_WinWidth = 45
-let Tlist_GainFocus_On_ToggleOpen= 1
-let Tlist_Ctags_Cmd = 'ctags'
-let Tlist_Show_One_File = 1
-"let Tlist_Display_Prototype = 1
+
+"Tagbar plugin configuration
+let g:tagbar_autofocus = 1  "autofocus on tagbar window when opening it
+
 
 " CtrlP Options
 " Fuzzy search for MRU, buffer, files
@@ -314,8 +312,8 @@ let g:maplocalleader = ","
 " and vice / versa
 set clipboard=unnamed
 
-" Taglist plugin mapping
-noremap <silent> <Leader>ta :TlistToggle<CR>
+" Tagbar plugin mapping
+noremap <silent> <Leader>ta :TagbarToggle<CR>
 
 " FuzzyFinder plugin mapping
 "noremap <Leader>o :FufFile **/<CR>
@@ -490,6 +488,8 @@ command! Clearconfig call s:clearcase_config()
 " Task
 " to be used with vim outliner
 command! Task :silent e ~/task.otl
+
+"Split a small window on the right
 command! Split normal 30v
 
 
