@@ -2,7 +2,8 @@
 "
 " Need Vim Version > 7.4
 "
-" On Windows, rename Vimrc folder into vimfiles
+" On Windows, rename .vim folder into vimfiles
+" and clone project in there.
 "
 " Customized for French keyboard to avoid leaving middle keyboard row
 "   Map Leader is ','
@@ -24,17 +25,9 @@ set nocompatible     " break compatibility with VI but enable a lots of VIM feat
 set langmenu=en_GB.UTF-8    " sets the language of the menu (gvim)
 "language en                 " sets the language of the messages / ui (vim)
 
-" On Windows, also use ~/.vim instead of ~/vimfiles; this makes synchronization
-" across (heterogeneous) systems easier.
-"if has('win32') || has('win64')
-"    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-"endif
-
 " put every plugin in separate .vim/bundle/[PLUGIN_DIR]
 " filetype must be off before calling pathogen inititialisation
 filetype off
-"call pathogen#runtime_append_all_bundles()
-"call pathogen#helptags()
 execute pathogen#infect()
 
 " Syntax highlighting and filetypes
