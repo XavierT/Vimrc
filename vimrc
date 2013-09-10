@@ -540,8 +540,27 @@ function! s:clearcase_config()
     execute "!cleartool edcs "
 endfunction
 
-" End Other }}}2
 
+" Test if the task file is already open in VIM
+function! s:TaskSwapExists()
+    set wildignore-=*.swp
+
+    let s:exists =  filereadable(expand("$HOME/.task.otl.swp"))
+
+    set wildignore+=*.swp
+
+    return s:exists
+endfunction
+
+command! TestF call s:TaskSwapExists()
+
+"Open task
+" if task.otl.swp does not already exists
+if  (argc() == 0)
+    if( s:TaskSwapExists() == 0)
+         Task
+    endif
+endif
 " End Functions }}}1
 
 " *****************************************************************************
@@ -699,26 +718,6 @@ if !exists("my_auto_commands_loaded")
   endif
 " End Large File }}}1
 
-" Test if the task file is already open in VIM
-function! s:TaskSwapExists()
-    set wildignore-=*.swp
-
-    let s:exists =  filereadable(expand("$HOME/.task.otl.swp"))
-
-    set wildignore+=*.swp
-
-    return s:exists
-endfunction
-
-command! TestF call s:TaskSwapExists()
-
-"Open task
-" if task.otl.swp does not already exists
-if  (argc() == 0)
-    if( s:TaskSwapExists() == 0)
-         Task
-    endif
-endif
 
 " Custom settings to start in working environnement
 " when it is mounted
