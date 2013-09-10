@@ -33,9 +33,9 @@ set langmenu=en_GB.UTF-8    " sets the language of the menu (gvim)
 " put every plugin in separate .vim/bundle/[PLUGIN_DIR]
 " filetype must be off before calling pathogen inititialisation
 filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-
+"call pathogen#runtime_append_all_bundles()
+"call pathogen#helptags()
+execute pathogen#infect()
 
 " Syntax highlighting and filetypes
 filetype plugin indent on
