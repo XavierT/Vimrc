@@ -587,6 +587,8 @@ endfunction
 
 function! s:XML_options()
    setlocal shiftwidth=2
+   setlocal tabstop=2                " number of space characters used when displaying TAB
+   setlocal softtabstop=2            " will erase 4 spaces at once when using BS in the begining of lines only
 endfunction
 
 " End XML }}}2
