@@ -38,6 +38,8 @@ syntax on
 " General
 " ------- {{{2
 
+"display line number on the left column
+set number
 
 " Don't save options and mapping
 " between each sessions
