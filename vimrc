@@ -292,6 +292,9 @@ endif
 " Syntastic options:
 " Disable for now
 "let g:syntastic_enable_signs=1
+" html check does not really work well with handlebar template
+" so disable it for now
+let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
 " End Plugin }}}2
 
