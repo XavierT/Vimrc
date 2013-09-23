@@ -142,9 +142,9 @@ if has("gui_running")
     if has('win32') || has('win64')
         " colorscheme looking like default eclipse theme
         " better to work with rest of the team using eclipse
-        "set background=light
-        "colorscheme solarized
-        colorscheme eclipse
+        set background=light
+        colorscheme solarized
+        "colorscheme eclipse
     else
         set background=dark
         colorscheme solarized
