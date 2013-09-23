@@ -40,8 +40,8 @@ syntax on
 " General
 " ------- {{{2
 
-" Set line number (at least for a while)
-set nu
+"display line number on the left column
+set number
 
 " Don't save options and mapping
 " between each sessions
@@ -245,7 +245,7 @@ endif
 " Grep Options
 " ------ {{{2
 if has("gui_running")
-     set grepprg=grep\ -nH\ -R\ --include=*.sm\ --include=*.c\ --include=*.cpp\ --include=*.h\ --exclude-dir=workspace\ --exclude-dir=tools\ --exclude=symTbl.c\ $*\ .\ 
+     set grepprg=grep\ -nH\ -R\ --include=*.sm\ --include=*.c\ --include=*.cpp\ --include=*.h\ --include=*.js\ --include=*.html\--include=*.css\--exclude-dir=workspace\ --exclude-dir=tools\ --exclude=symTbl.c\ $*\ .\ 
 else
 
 set grepprg=grep\ -nH
@@ -303,6 +303,9 @@ let g:ctrlp_extensions = [ 'line', 'bookmardir']
 " Syntastic options:
 " Disable for now
 "let g:syntastic_enable_signs=1
+" html check does not really work well with handlebar template
+" so disable it for now
+let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
 " End Plugin }}}2
 
@@ -612,11 +615,22 @@ endfunction
 function! s:XML_options()
    setlocal shiftwidth=2
    setlocal tabstop=2                " number of space characters used when displaying TAB
-   setlocal softtabstop=2            " will erase 4 spaces at once when using BS in the begining of lines only
+   setlocal softtabstop=2            " will erase 2 spaces at once when using BS in the begining of lines only
 endfunction
 
 " End XML }}}2
 
+" Javascript
+" --- {{{2
+
+function! s:Javascript_options()
+   setlocal shiftwidth=2
+   setlocal tabstop=2                " number of space characters used when displaying TAB
+   setlocal softtabstop=2            " will erase 2 spaces at once when using BS in the begining of lines only
+   setlocal cinoptions=>1s
+endfunction
+
+" End XML }}}2
 " C like
 " ------ {{{2
 
@@ -664,6 +678,7 @@ autocmd BufRead,BufNewFile *.php call s:C_LIKE_options()
 autocmd BufRead,BufNewFile *.perl,*.pl call s:C_LIKE_options()
 autocmd BufRead,BufNewFile *.xml call s:XML_options()
 autocmd BufRead,BufNewFile *.html call s:HTML_options()
+autocmd BufRead,BufNewFile *.js call s:Javascript_options()
 autocmd BufRead,BufNewFile *.py call s:PYTHON_options()
 autocmd BufRead,BufNewFile *.txt call s:TXT_options()
 " For makefile do not expand tab !
