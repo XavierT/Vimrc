@@ -7,7 +7,7 @@
 "
 " Customized for French keyboard to avoid leaving middle keyboard row
 "   Map Leader is ','
-"   Jump to tag is <C-j>
+"   Jump to tag is "fj"
 "   Bufexplorer is <Leader>q
 "
 "
@@ -30,6 +30,8 @@ set langmenu=en_GB.UTF-8    " sets the language of the menu (gvim)
 filetype off
 execute pathogen#infect()
 
+" To regenerate all documentation in plugin run :Helptags provide by pathogen
+
 " Syntax highlighting and filetypes
 filetype plugin indent on
 syntax on
@@ -38,6 +40,8 @@ syntax on
 " General
 " ------- {{{2
 
+" Set line number (at least for a while)
+set nu
 
 " Don't save options and mapping
 " between each sessions
@@ -153,12 +157,12 @@ endif
 " set highlight+=f-,F- 
 
 " Persistent undo (new in VIm 7.3)
-" set undodir=~/.vim/undodir
-if (v:version >= 703)
-    set undofile
-    set undolevels=1000 "maximum number of changes that can be undone
-    set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-endif
+"set undodir=~/.vim/undodir
+"if (v:version >= 703)
+"    set undofile
+"    set undolevels=1000 "maximum number of changes that can be undone
+"    set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+"endif
 
 "
 "
@@ -275,16 +279,25 @@ let g:ctrlp_custom_ignore = {
         \ 'dir': 'workspace,tools',
         \ }
 
-function! Index_workspace()
-    if has("win32")
-        execute "Start! dir *.c,*.cpp,*.h /s /b > Z:/heroic/file_list.txt"
-    endif
-endfunction
+" Open CtrlP in the current file directory
+" If you are using git or svn, it might a better idea to use
+" let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'c'
 
-if has("win32")
-    nnoremap <F9> <ESC>:call Index_workspace() <cr>
-    let g:ctrlp_user_command = ['file_list.txt', 'type %s\file_list.txt']
-endif
+" line:  allow to search line by line in the current file
+" bookmarkdir : allow to bookmard a directory
+let g:ctrlp_extensions = [ 'line', 'bookmardir']
+
+"function! Index_workspace()
+"    if has("win32")
+"        execute "Start! dir *.c,*.cpp,*.h /s /b > Z:/heroic/file_list.txt"
+"    endif
+"endfunction
+"
+"if has("win32")
+"    nnoremap <F9> <ESC>:call Index_workspace() <cr>
+"    let g:ctrlp_user_command = ['file_list.txt', 'type %s\file_list.txt']
+"endif
 
 
 " Syntastic options:
@@ -310,12 +323,8 @@ set clipboard=unnamed
 " Tagbar plugin mapping
 noremap <silent> <Leader>ta :TagbarToggle<CR>
 
-" FuzzyFinder plugin mapping
-"noremap <Leader>o :FufFile **/<CR>
-
-
 " CtrlP mapping
-noremap <Leader>o :CtrlPCurWD<CR>
+"noremap <Leader>o :CtrlPCurWD<CR>
 
 
 " Quick Grep
