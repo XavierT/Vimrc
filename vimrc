@@ -142,7 +142,7 @@ if has("gui_running")
     if has('win32') || has('win64')
         " colorscheme looking like default eclipse theme
         " better to work with rest of the team using eclipse
-        set background=light
+        set background=dark
         colorscheme solarized
         "colorscheme eclipse
     else
@@ -201,8 +201,8 @@ if has("gui_running")
     "set guifont=DejaVu_Sans_Mono:h10:cANSI
     " Try out Ubunto mono font
     "
-    if has("win32")
-        set guifont=Ubuntu_Mono:h11:cANSI
+    if has('win32') || has('win64')
+        set guifont=Source_Code_Pro_Semibold:h11:cANSI
     else
         set guifont=Ubuntu\ Mono\ 11
     endif
@@ -217,7 +217,7 @@ if has("gui_running")
       endif
     endfunction
 
-    if has("win32")
+    if has('win32') || has('win64')
         " Display or hide menu when using gVim
         " only works with Windows in French...
         function! ToggleFullScreen()
@@ -433,7 +433,7 @@ nnoremap  <Leader>q :BufExplorer<CR>
 " toggle spell checking with s
 nmap <silent> <leader>s :setlocal spell!<CR>
 
-if has("win32")
+if has('win32') || has('win64')
     " Quick .vimrc edit
     nmap <silent> <Leader>u :e $MYVIMRC<CR>
     " Quick .vimrc reload
@@ -513,7 +513,7 @@ command! Split normal 30v
 "
 " on a pure linux installation using :p instead of :t should work
 function! s:clearcase_versionTree()
-    if has("win32")
+    if has('win32') || has('win64')
         execute "!start cleartool lsvtree -g ".expand("%:p")." & "
     else
         execute "!cleartool lsvtree -g ".expand("%:p")." & "
@@ -521,7 +521,7 @@ function! s:clearcase_versionTree()
 endfunction
 
 function! s:clearcase_checkout()
-    if has("win32")
+    if has('win32') || has('win64')
         execute "!start cleartool co -nc ".expand("%:p")
     else
         execute "!cleartool co -nc ".expand("%:p")
@@ -529,7 +529,7 @@ function! s:clearcase_checkout()
 endfunction
 
 function! s:clearcase_diff()
-    if has("win32")
+    if has('win32') || has('win64')
         execute "!start cleartool diff -g -predecessor ".expand("%:p")
     else
         execute "!cleartool diff -g -predecessor ".expand("%:p")." & "
