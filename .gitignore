@@ -2,8 +2,10 @@
 # open file on github
 .netrwhist
 #ignore generated tag files
-tags
+**/tags
 vim-fuf-data
 *.swp
 #ignore vim undelete files
 *.un~
+#ignore spell file because it could leak some activities
+spell/*
