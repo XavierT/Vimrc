@@ -217,22 +217,6 @@ if has("gui_running")
       endif
     endfunction
 
-    if has('win32') || has('win64')
-        " Display or hide menu when using gVim
-        " only works with Windows in French...
-        function! ToggleFullScreen()
-                execute "simalt ~n "
-        endfunction
-
-        function! MinFullScreen()
-                execute "simalt ~r "
-        endfunction
-
-        nmap <F11> <Esc>:call MinFullScreen() <cr>
-        nmap <F12> <Esc>:call ToggleFullScreen() <cr>
-
-    endif
-
     nmap <F10> <Esc>:call ToggleGUICruft() <cr>
 
     " by default, hide gui menus
@@ -325,10 +309,6 @@ set clipboard=unnamed
 
 " Tagbar plugin mapping
 noremap <silent> <Leader>ta :TagbarToggle<CR>
-
-" CtrlP mapping
-"noremap <Leader>o :CtrlPCurWD<CR>
-
 
 " Quick Grep
 " open and switch to quickfix window
