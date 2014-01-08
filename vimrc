@@ -266,7 +266,14 @@ let g:ctrlp_custom_ignore = {
 " Open CtrlP in the current file directory
 " If you are using git or svn, it might a better idea to use
 " let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_working_path_mode = 'c'
+let g:ctrlp_working_path_mode = '0'
+
+" Enable/Disable per-session caching: >
+" Press F5 inside ctrl P to refresh cache
+  let g:ctrlp_use_caching = 1
+
+" Set the directory to store the cache files: >
+  let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 
 " line:  allow to search line by line in the current file
 " bookmarkdir : allow to bookmard a directory
