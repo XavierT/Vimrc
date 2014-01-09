@@ -260,7 +260,7 @@ let g:tagbar_autofocus = 1  "autofocus on tagbar window when opening it
 " CtrlP Options
 " Fuzzy search for MRU, buffer, files
 let g:ctrlp_custom_ignore = {
-        \ 'dir': 'workspace,tools',
+        \ 'dir': 'workspace|tools',
         \ }
 
 " Open CtrlP in the current file directory
