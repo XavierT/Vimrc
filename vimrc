@@ -229,7 +229,24 @@ endif
 " Grep Options
 " ------ {{{2
 if has("gui_running")
-     set grepprg=grep\ -nH\ -R\ --include=*.sm\ --include=*.c\ --include=*.cpp\ --include=*.h\ --include=*.js\ --include=*.html\--include=*.css\--exclude-dir=workspace\ --exclude-dir=tools\ --exclude=symTbl.c\ $*\ .\ 
+     set grepprg=grep\
+\ -nH\
+\ -R\
+\ --include=*.sm\
+\ --include=*.c\
+\ --include=*.cpp\
+\ --include=*.idl\
+\ --include=*.h\
+\ --include=*.js\
+\ --include=*.html\
+\ --include=*.css\
+\ --exclude-dir=workspace\
+\ --exclude-dir=tools\
+\ --exclude-dir=atlas\
+\ --exclude-dir=atlasdelivery\
+\ --exclude-dir=atlastools\
+\ --exclude=symTbl.c\
+\ $*\ .\ 
 else
 
 set grepprg=grep\ -nH
@@ -400,7 +417,7 @@ vnoremap è }
 "nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.rb .
 
 " Using dispatch plugin
-nnoremap <F8> :Start!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js .
+nnoremap <F8> :Start!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js,*.idl,*.xml .
 
 " Refresh ctags with recently edited files
 nnoremap <F7> :bufdo !ctags -a --C++-kinds=+p --fields=+iaS --extra=q  %
