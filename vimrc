@@ -288,7 +288,7 @@ let g:tagbar_autofocus = 1  "autofocus on tagbar window when opening it
 
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	\ 'file': '\v\.(exe|so|dll|o|_cv\.cpp|_sv\.cpp|_cv\.h|_sv\.h)$',
+	\ 'file': '\v(\.(exe|so|dll|o))|(_cv\.cpp|_sv\.cpp|_cv\.h|_sv\.h)$',
 	\ }
 
 " Max limit in the number of file searched
