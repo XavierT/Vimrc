@@ -236,16 +236,24 @@ if has("gui_running")
 \ --include=*.c\
 \ --include=*.cpp\
 \ --include=*.idl\
+\ --include=*.cfg\
+\ --include=*.dyn\
+\ --include=*.cal\
 \ --include=*.h\
 \ --include=*.js\
 \ --include=*.html\
 \ --include=*.css\
+\ --include=*.py\
+\ --include=*.bat\
 \ --exclude-dir=workspace\
 \ --exclude-dir=tools\
-\ --exclude-dir=atlas\
 \ --exclude-dir=atlasdelivery\
 \ --exclude-dir=atlastools\
 \ --exclude=symTbl.c\
+\ --exclude=*_sv.cpp\
+\ --exclude=*_cv.cpp\
+\ --exclude=*_sv.h\
+\ --exclude=*_cv.h\
 \ $*\ .\ 
 else
 
@@ -273,12 +281,25 @@ endif
 "Tagbar plugin configuration
 let g:tagbar_autofocus = 1  "autofocus on tagbar window when opening it
 
-
 " CtrlP Options
 " Fuzzy search for MRU, buffer, files
+" Example to ignore folders containing atlas
+"  \ 'dir':  '\v[\/]\.(git|hg|svn)|.*atlas.*$',
+
 let g:ctrlp_custom_ignore = {
-        \ 'dir': 'workspace|tools',
-        \ }
+	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	\ 'file': '\v\.(exe|so|dll|o|_cv\.cpp|_sv\.cpp|_cv\.h|_sv\.h)$',
+	\ }
+
+" Max limit in the number of file searched
+" 0 for no limit
+let g:ctrlp_max_files = 0
+
+" Max directory depth
+let g:ctrlp_max_depth = 20
+
+" maximum size of the result window
+let g:ctrlp_max_height = 20
 
 " Open CtrlP in the current file directory
 " If you are using git or svn, it might a better idea to use
@@ -287,10 +308,10 @@ let g:ctrlp_working_path_mode = '0'
 
 " Enable/Disable per-session caching: >
 " Press F5 inside ctrl P to refresh cache
-  let g:ctrlp_use_caching = 1
+let g:ctrlp_use_caching = 1
 
 " Set the directory to store the cache files: >
-  let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 
 " line:  allow to search line by line in the current file
 " bookmarkdir : allow to bookmard a directory
