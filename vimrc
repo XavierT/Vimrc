@@ -242,11 +242,11 @@ if has("gui_running")
 \ --include=*.h\
 \ --include=*.js\
 \ --include=*.html\
+\ --include=*.xml\
 \ --include=*.css\
 \ --include=*.py\
 \ --include=*.bat\
 \ --exclude-dir=workspace\
-\ --exclude-dir=tools\
 \ --exclude-dir=atlasdelivery\
 \ --exclude-dir=atlastools\
 \ --exclude=symTbl.c\
@@ -448,7 +448,8 @@ set tags=tags,./tags
 " Fast Buffer Switching
 " with plugin BufExplorer installed
 " nnoremap ² :BufExplorer<CR>
-nnoremap  <Leader>q :BufExplorer<CR>
+"nnoremap  <Leader>q :BufExplorer<CR>
+nnoremap  <Leader>q :CtrlPBuffer<CR>
 
 
 " Save and restore session
@@ -524,7 +525,9 @@ command! Task :silent e ~/task.otl
 "Split a small window on the right
 command! Split normal 30v
 
+" Tortoise SVN...
 
+command! Svndiff call s:tortoisesvn_graphicaldiff()
 
 " End Commands }}}1
 
@@ -572,6 +575,9 @@ function! s:clearcase_config()
     execute "!cleartool edcs "
 endfunction
 
+function! s:tortoisesvn_graphicaldiff()
+    execute "!TortoiseProc.exe /command:diff /path:."
+endfunction
 
 " Test if the task file is already open in VIM
 function! s:TaskSwapExists()
