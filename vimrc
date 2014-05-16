@@ -246,6 +246,9 @@ if has("gui_running")
 \ --include=*.css\
 \ --include=*.py\
 \ --include=*.bat\
+\ --include=*.txt\
+\ --include=*.err\
+\ --include=*.md\
 \ --exclude-dir=workspace\
 \ --exclude-dir=atlasdelivery\
 \ --exclude-dir=atlastools\
@@ -273,15 +276,21 @@ set grepprg=grep\ -nH
 endif
 " End Grep options }}}2
 
-" *************************************
+" End Options }}}1
+
+" *****************************************************************************
 " Plugin Configuration
-" ------ {{{2
+" ======= {{{1
 
 
-"Tagbar plugin configuration
+"Tagbar
+" ------- {{{2
 let g:tagbar_autofocus = 1  "autofocus on tagbar window when opening it
 
-" CtrlP Options
+" }}} 2   End Tagbar
+
+" CtrlP
+" ------- {{{2
 " Fuzzy search for MRU, buffer, files
 " Example to ignore folders containing atlas
 "  \ 'dir':  '\v[\/]\.(git|hg|svn)|.*atlas.*$',
@@ -291,6 +300,13 @@ let g:ctrlp_custom_ignore = {
 	\ 'file': '\v(\.(exe|so|dll|o))|(_cv\.cpp|_sv\.cpp|_cv\.h|_sv\.h)$',
 	\ }
 
+" Enable/Disable per-session caching: >
+" Press F5 inside ctrl P to refresh cache
+let g:ctrlp_use_caching = 1
+
+" keep the cache between session
+let g:ctrlp_clear_cache_on_exit = 0
+
 " Max limit in the number of file searched
 " 0 for no limit
 let g:ctrlp_max_files = 0
@@ -299,16 +315,13 @@ let g:ctrlp_max_files = 0
 let g:ctrlp_max_depth = 20
 
 " maximum size of the result window
-let g:ctrlp_max_height = 20
+let g:ctrlp_max_height = 25
 
 " Open CtrlP in the current file directory
 " If you are using git or svn, it might a better idea to use
 " let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_working_path_mode = '0'
 
-" Enable/Disable per-session caching: >
-" Press F5 inside ctrl P to refresh cache
-let g:ctrlp_use_caching = 1
 
 " Set the directory to store the cache files: >
 let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
@@ -317,30 +330,29 @@ let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 " bookmarkdir : allow to bookmard a directory
 let g:ctrlp_extensions = [ 'line', 'bookmardir']
 
-"function! Index_workspace()
-"    if has("win32")
-"        execute "Start! dir *.c,*.cpp,*.h /s /b > Z:/heroic/file_list.txt"
-"    endif
-"endfunction
-"
-"if has("win32")
-"    nnoremap <F9> <ESC>:call Index_workspace() <cr>
-"    let g:ctrlp_user_command = ['file_list.txt', 'type %s\file_list.txt']
-"endif
+" }}} 2   End CtrlP
 
-
-" Syntastic options:
+" Syntastic
+" ------- {{{2
 " Disable for now
 "let g:syntastic_enable_signs=1
 " html check does not really work well with handlebar template
 " so disable it for now
 let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
-" End Plugin }}}2
+" }}} 2 End Syntastic
 
-" End Options }}}1
+" Airline option
+" ------- {{{2
 
-"******************************************************************************
+" Disable check of mixed mode / trailing white space
+let g:airline#extensions#whitespace#enabled = 0
+
+" }}} 2 End Airline
+
+" End Plugin }}}1
+
+" *****************************************************************************
 " Mapping
 " ==================== {{{1
 
@@ -499,7 +511,6 @@ inoreabbrev thedate <C-R>=strftime("%Y-%m-%d")<CR>
 " End Abbreviations }}}2
 
 " End Mapping }}}1
-"
 
 "******************************************************************************
 " Commands
@@ -741,8 +752,6 @@ autocmd BufRead,BufNewFile *.otl set filetype=vo_base
 "endif
 
 " End Autocmd }}}1
-"
-"
 
 " *****************************************************************************
 " Management of Large file
@@ -769,12 +778,11 @@ if !exists("my_auto_commands_loaded")
   endif
 " End Large File }}}1
 
-
 " Custom settings to start in working environnement
 " when it is mounted
 " if not stay in current directory
-if isdirectory("C:\\dev\\mammo\\nextGen")
-    cd C:\dev\mammo\nextGen
+if isdirectory("C:\\dev\\mammo\\nextGen_0.8.1")
+    cd C:\dev\mammo\nextGen_0.8.1
 endif
 
 
