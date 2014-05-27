@@ -587,7 +587,7 @@ function! s:clearcase_config()
 endfunction
 
 function! s:tortoisesvn_graphicaldiff()
-    execute "!TortoiseProc.exe /command:diff /path:."
+    execute "Start!TortoiseProc.exe /command:diff /path:."
 endfunction
 
 " Test if the task file is already open in VIM
@@ -781,8 +781,8 @@ if !exists("my_auto_commands_loaded")
 " Custom settings to start in working environnement
 " when it is mounted
 " if not stay in current directory
-if isdirectory("C:\\dev\\mammo\\nextGen_0.8.1")
-    cd C:\dev\mammo\nextGen_0.8.1
+if isdirectory("C:\\dev\\mammo\\nextGen_0.12.1")
+    cd C:\dev\mammo\nextGen_0.12.1
 endif
 
 
