@@ -228,8 +228,8 @@ endif
 " *************************************
 " Grep Options
 " ------ {{{2
-if has("gui_running")
-     set grepprg=grep\
+"
+ set grepprg=grep\
 \ -nH\
 \ -R\
 \ --include=*.sm\
@@ -252,28 +252,20 @@ if has("gui_running")
 \ --exclude-dir=workspace\
 \ --exclude-dir=atlasdelivery\
 \ --exclude-dir=atlastools\
+\ --exclude-dir=.svn\
+\ --exclude-dir=.git\
+\ --exclude-dir=.hg\
 \ --exclude=symTbl.c\
 \ --exclude=*_sv.cpp\
 \ --exclude=*_cv.cpp\
 \ --exclude=*_sv.h\
 \ --exclude=*_cv.h\
 \ $*\ .\ 
-else
 
-set grepprg=grep\ -nH
-\\--include='*.c'
-\\--include='*.cpp'
-\\--include='*.xml
-\\--include='*.ops'
-\\--include='*.osd'
-\\--include='*.h'
-\\--exclude-dir='.svn'
-\\--exclude='*.svn-base'
-\\--exclude-dir='OBJ'
-\\--exclude='symTbl.c'
-\\ $*
-\\ -R\ .
-endif
+
+
+
+
 " End Grep options }}}2
 
 " End Options }}}1
@@ -781,8 +773,8 @@ if !exists("my_auto_commands_loaded")
 " Custom settings to start in working environnement
 " when it is mounted
 " if not stay in current directory
-if isdirectory("C:\\dev\\mammo\\nextGen_0.12.1")
-    cd C:\dev\mammo\nextGen_0.12.1
+if isdirectory("C:\\dev\\mammo\\xt_HCSDM00292228")
+    cd C:\dev\mammo\xt_HCSDM00292228
 endif
 
 
