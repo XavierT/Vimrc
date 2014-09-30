@@ -158,11 +158,11 @@ endif
 
 " Persistent undo (new in VIm 7.3)
 "set undodir=~/.vim/undodir
-"if (v:version >= 703)
-"    set undofile
-"    set undolevels=1000 "maximum number of changes that can be undone
-"    set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-"endif
+if (v:version >= 703)
+    set undofile
+    set undolevels=1000 "maximum number of changes that can be undone
+    set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+endif
 
 "
 "
@@ -261,9 +261,6 @@ endif
 \ --exclude=*_sv.h\
 \ --exclude=*_cv.h\
 \ $*\ .\ 
-
-
-
 
 
 " End Grep options }}}2
@@ -442,7 +439,7 @@ vnoremap è }
 "nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.rb .
 
 " Using dispatch plugin
-nnoremap <F8> :Start!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js,*.idl,*.xml .
+nnoremap <F8> :Start!ctags -R --C++-kinds=+p --fields=+liaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js,*.idl,*.xml .
 
 " Refresh ctags with recently edited files
 nnoremap <F7> :bufdo !ctags -a --C++-kinds=+p --fields=+iaS --extra=q  %
@@ -773,8 +770,8 @@ if !exists("my_auto_commands_loaded")
 " Custom settings to start in working environnement
 " when it is mounted
 " if not stay in current directory
-if isdirectory("C:\\dev\\mammo\\xt_HCSDM00292228")
-    cd C:\dev\mammo\xt_HCSDM00292228
+if isdirectory("C:\\dev\\mammo\\xt_rev_26")
+    cd C:\dev\mammo\xt_rev_26
 endif
 
 
