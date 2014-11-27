@@ -98,7 +98,7 @@ set autoindent
 set wildmenu
 set wildmode=longest:full,full
 set suffixes+=.bak,~,.out
-set wildignore+=*.o,*.toc,*.swp,*.aux,*.log,*.dvi,*.ps,*.exe,*.bin,.git,.svn,CVS,*.so,*.debug,*.make,CMakeLists.*,build*xenomai,*.png,*.swf,*.dtd,*.cmake,*.RFL
+set wildignore+=*.o,*.toc,*.swp,*.aux,*.log,*.dvi,*.ps,*.exe,*.bin,.git,.svn,CVS,*.so,*.debug,*.make,build*xenomai,*.png,*.swf,*.dtd,*.cmake,*.RFL
 set complete-=i   " when using autocomplete do not look into all included file because it is too long
                   " with network file systeim...
 
@@ -770,8 +770,8 @@ if !exists("my_auto_commands_loaded")
 " Custom settings to start in working environnement
 " when it is mounted
 " if not stay in current directory
-if isdirectory("C:\\dev\\mammo\\xt_rev_26")
-    cd C:\dev\mammo\xt_rev_26
+if isdirectory("C:\\dev\\mammo\\xt_rev31")
+    cd C:\dev\mammo\xt_rev31
 endif
 
 
