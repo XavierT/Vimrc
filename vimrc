@@ -142,11 +142,11 @@ if has("gui_running")
     if has('win32') || has('win64')
         " colorscheme looking like default eclipse theme
         " better to work with rest of the team using eclipse
-        set background=dark
+        set background=light
         colorscheme solarized
         "colorscheme eclipse
     else
-        set background=dark
+        set background=light
         colorscheme solarized
     endif
 else
@@ -328,6 +328,10 @@ let g:ctrlp_extensions = [ 'line', 'bookmardir']
 " html check does not really work well with handlebar template
 " so disable it for now
 let syntastic_mode_map = { 'passive_filetypes': ['html'] }
+
+" I have not configured correctly the include list for syntastic
+" anyway
+let g:syntastic_cpp_no_include_search = 1
 
 " }}} 2 End Syntastic
 
@@ -694,6 +698,7 @@ endfunction
 function! s:TXT_options()
    setlocal noundofile                "don't want to have temp file every time I open a txt file
    setlocal spell                     " add spell checker for txt files
+   setlocal noexpandtab               "allow to use tab in txt and tsv file
 endfunction
 
 " End PYTHON }}}2
@@ -711,7 +716,7 @@ autocmd BufRead,BufNewFile *.xml call s:XML_options()
 autocmd BufRead,BufNewFile *.html call s:HTML_options()
 autocmd BufRead,BufNewFile *.js call s:Javascript_options()
 autocmd BufRead,BufNewFile *.py call s:PYTHON_options()
-autocmd BufRead,BufNewFile *.txt call s:TXT_options()
+autocmd BufRead,BufNewFile *.txt,*.tsv call s:TXT_options()
 " For makefile do not expand tab !
 autocmd BufRead,BufNewFile Makefile*,makefile* setlocal noexpandtab
 
@@ -770,8 +775,8 @@ if !exists("my_auto_commands_loaded")
 " Custom settings to start in working environnement
 " when it is mounted
 " if not stay in current directory
-if isdirectory("C:\\dev\\mammo\\xt_rev31")
-    cd C:\dev\mammo\xt_rev31
+if isdirectory("C:\\dev\\mammo\\xt_rev40")
+    cd C:\dev\mammo\xt_rev40
 endif
 
 
