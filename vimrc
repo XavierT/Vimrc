@@ -603,14 +603,6 @@ endfunction
 
 command! TestF call s:TaskSwapExists()
 
-"Open task
-" if task.otl.swp does not already exists
-if  (argc() == 0)
-    if( s:TaskSwapExists() == 0)
-         Task
-    endif
-endif
-
 " End Functions }}}1
 
 " *****************************************************************************
