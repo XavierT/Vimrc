@@ -156,13 +156,9 @@ endif
 " Disable syntax highlighting for fold lines
 " set highlight+=f-,F- 
 
-" Persistent undo (new in VIm 7.3)
-"set undodir=~/.vim/undodir
-if (v:version >= 703)
-    set undofile
-    set undolevels=1000 "maximum number of changes that can be undone
-    set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-endif
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
 "
 "
@@ -318,6 +314,9 @@ let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 " line:  allow to search line by line in the current file
 " bookmarkdir : allow to bookmard a directory
 let g:ctrlp_extensions = [ 'line', 'bookmardir']
+
+" nnoremap <leader>p :CtrlP<CR>
+nnoremap <C-m> :CtrlPMRUFiles<CR>
 
 " }}} 2   End CtrlP
 
@@ -767,7 +766,7 @@ if !exists("my_auto_commands_loaded")
   " undolevels=-1 (no undo possible)
   let g:LargeFile = 1024 * 1024 * 10
   augroup LargeFile
-    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite noundofile | else | set eventignore-=FileType | endif
     augroup END
   endif
 " End Large File }}}1
