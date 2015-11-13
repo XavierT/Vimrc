@@ -187,7 +187,7 @@ endfunction
 if has("gui_running")
     " GUI is running or is about to start.
     " Maximize gvim window.
-    set lines=120 columns=140
+    set lines=120 columns=90
     " Lucida is nice but a bit sharp
     " set guifont=Lucida_Console:h10:cANSI
 
