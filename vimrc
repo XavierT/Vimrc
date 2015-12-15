@@ -703,6 +703,7 @@ endfunction
 function! s:TXT_options()
    setlocal noundofile                "don't want to have temp file every time I open a txt file
    setlocal spell                     " add spell checker for txt files
+   setlocal nolist                    "don't display whitespace in a text file 
 endfunction
 
 " End PYTHON }}}2
