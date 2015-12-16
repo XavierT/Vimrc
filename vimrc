@@ -349,6 +349,11 @@ let g:airline#extensions#whitespace#enabled = 0
 
 " }}} 2 End Airline
 
+" rust.vim
+" enable rustfmt on save
+" cargo install rustfmt to install it
+let g:rustfmt_autosave = 1
+
 " End Plugin }}}1
 
 " *****************************************************************************
