@@ -449,7 +449,7 @@ vnoremap è }
 "nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.rb .
 
 " Using dispatch plugin
-nnoremap <F8> :Start!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js,*.idl,*.xml .
+nnoremap <F8> :Start!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.rs,*.h,*.js,*.idl,*.xml .
 
 " Refresh ctags with recently edited files
 nnoremap <F7> :bufdo !ctags -a --C++-kinds=+p --fields=+iaS --extra=q  %
@@ -708,6 +708,7 @@ endfunction
 autocmd BufRead,BufNewFile *.c call s:C_options()
 autocmd BufRead,BufNewFile *.cpp call s:CPP_options()
 autocmd BufRead,BufNewFile *.php call s:C_LIKE_options()
+autocmd BufRead,BufNewFile *.rs call s:C_LIKE_options()
 autocmd BufRead,BufNewFile *.perl,*.pl call s:C_LIKE_options()
 autocmd BufRead,BufNewFile *.xml call s:XML_options()
 autocmd BufRead,BufNewFile *.html call s:HTML_options()
