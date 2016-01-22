@@ -245,6 +245,7 @@ endif
 \ --include=*.txt\
 \ --include=*.err\
 \ --include=*.md\
+\ --include=*postraces*\
 \ --exclude-dir=workspace\
 \ --exclude-dir=atlasdelivery\
 \ --exclude-dir=atlastools\
@@ -258,6 +259,13 @@ endif
 \ --exclude=*_cv.h\
 \ $*\ .\ 
 
+ " if ag is available use it instead of grep
+if executable('ag')
+    " Note we extract the column as well as the file and line number
+    " -z will open gzipped files
+    set grepprg=ag\ --nogroup\ --nocolor\ --column\ --vimgrep\ --search-zip\ --ignore\ symTbl.c
+    ""set grepformat=%f:%l:%c%m
+endif
 
 " End Grep options }}}2
 
@@ -318,6 +326,11 @@ let g:ctrlp_extensions = [ 'line', 'bookmardir']
 " nnoremap <leader>p :CtrlP<CR>
 nnoremap <C-m> :CtrlPMRUFiles<CR>
 
+
+" for some reason the above mapping open the MRU list in quickfix on enter
+" In the quickfix window, <CR> is used to jump to the error under the
+" cursor, so undefine the mapping there.
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 " }}} 2   End CtrlP
 
 " Syntastic
@@ -361,7 +374,8 @@ noremap <silent> <Leader>ta :TagbarToggle<CR>
 
 " Quick Grep
 " open and switch to quickfix window
-noremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR>
+"noremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR>
+nnoremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR>
 
 " Version to be used with vim dispatch:
 " does not support jump to file in this version...
