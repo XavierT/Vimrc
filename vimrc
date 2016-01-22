@@ -245,7 +245,7 @@ endif
 \ --include=*.txt\
 \ --include=*.err\
 \ --include=*.md\
-\ --include=*.rs
+\ --include=*.rs\
 \ --exclude-dir=workspace\
 \ --exclude-dir=atlasdelivery\
 \ --exclude-dir=atlastools\
