@@ -245,6 +245,7 @@ if has("gui_running")
 \ --include=*.txt\
 \ --include=*.err\
 \ --include=*.md\
+\ --include=*.rs
 \ --exclude-dir=workspace\
 \ --exclude-dir=atlasdelivery\
 \ --exclude-dir=atlastools\
@@ -352,7 +353,8 @@ let g:airline#extensions#whitespace#enabled = 0
 " rust.vim
 " enable rustfmt on save
 " cargo install rustfmt to install it
-let g:rustfmt_autosave = 1
+"let g:rustfmt_autosave = 1
+"too annoying to do it every time
 
 " End Plugin }}}1
 
