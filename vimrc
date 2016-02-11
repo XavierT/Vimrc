@@ -323,8 +323,7 @@ let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 " bookmarkdir : allow to bookmard a directory
 let g:ctrlp_extensions = [ 'line', 'bookmardir']
 
-" nnoremap <leader>p :CtrlP<CR>
-nnoremap <C-m> :CtrlPMRUFiles<CR>
+nnoremap <C-r> :CtrlPMRUFiles<CR>
 
 
 " for some reason the above mapping open the MRU list in quickfix on enter
@@ -368,6 +367,9 @@ let g:maplocalleader = ","
 " To easily copy paste from vim to external app
 " and vice / versa
 set clipboard=unnamed
+
+" Change directory to current open file
+nnoremap <leader>p :cd %:p:h<CR> 
 
 " Tagbar plugin mapping
 noremap <silent> <Leader>ta :TagbarToggle<CR>
@@ -474,8 +476,6 @@ nnoremap  <Leader>q :CtrlPBuffer<CR>
 "nnoremap <F2> :mksession! ~/vim_session<CR>
 "nnoremap <F3> :source ~/vim_session<CR>
 
-" toggle spell checking with s
-nmap <silent> <leader>s :setlocal spell!<CR>
 
 if has('win32') || has('win64')
     " Quick .vimrc edit
@@ -593,7 +593,7 @@ function! s:clearcase_config()
 endfunction
 
 function! s:tortoisesvn_graphicaldiff()
-    execute "Start!TortoiseProc.exe /command:diff /path:."
+    execute "!TortoiseProc.exe /command:diff /path:."
 endfunction
 
 " Test if the task file is already open in VIM
@@ -710,7 +710,7 @@ endfunction
 
 function! s:TXT_options()
    setlocal noundofile                "don't want to have temp file every time I open a txt file
-   setlocal spell                     " add spell checker for txt files
+   setlocal nospell                    " add spell checker for txt files
    setlocal noexpandtab               "allow to use tab in txt and tsv file
    setlocal nolist                    "don't display whitespace in a text file 
 endfunction
