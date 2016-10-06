@@ -324,7 +324,7 @@ let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_extensions = [ 'line', 'bookmardir']
 
 " nnoremap <leader>p :CtrlP<CR>
-nnoremap <C-m> :CtrlPMRUFiles<CR>
+nnoremap <C-r> :CtrlPMRUFiles<CR>
 
 
 " for some reason the above mapping open the MRU list in quickfix on enter
