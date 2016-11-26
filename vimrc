@@ -275,6 +275,11 @@ endif
 " Plugin Configuration
 " ======= {{{1
 
+"rust.vim
+let g:rustfmt_command = '~/.cargo/bin/rustfmt'
+
+"autoformat on save
+let g:rustfmt_autosave = 1
 
 "Tagbar
 " ------- {{{2
