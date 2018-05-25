@@ -260,7 +260,6 @@ endif
 \ $*\ .\ 
 
 if executable("rg")
-    " use Start to run search in background
     set grepprg=rg\ --vimgrep\ --no-heading
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
@@ -358,8 +357,15 @@ let g:airline#extensions#whitespace#enabled = 0
 
 " }}} 2 End Airline
 
-" End Plugin }}}1
+" Asyncrun option
+" ------- {{{2
 
+"automatically open quickfix windows with 6 lines
+let g:asyncrun_open = 6 
+" }}} 2 End Asyncrun
+
+" End Plugin }}}1
+"
 " *****************************************************************************
 " Mapping
 " ==================== {{{1
@@ -380,8 +386,14 @@ noremap <silent> <Leader>ta :TagbarToggle<CR>
 
 " Quick Grep
 " open and switch to quickfix window
-"noremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR>
 nnoremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR>
+
+if executable("rg")
+    " <cwd> search the root directory with a .git/.svn/.darcs
+    " current directory if none found
+    " see asyncrun help
+    noremap <Leader>g :AsyncRun! rg --vimgrep --no-heading <C-R><C-W> <CR>
+endif
 
 " Grep in current buffer only
 " Do not jump to quickfix window
@@ -451,13 +463,8 @@ nnoremap è }
 vnoremap è }
 
 " Quick Tags Creation
-" additional fields used by omnicompletion plugin
-" noremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q .
-" Create ctags from scratch
-"nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.rb .
-
-" Using dispatch plugin
-nnoremap <F8> :Start!ctags.exe -R --C++-kinds=+p --fields=+liaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js,*.idl,*.xml .
+" Using Async plugin
+nnoremap <F8> :AsyncRun!ctags.exe -R --C++-kinds=+p --fields=+liaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js,*.idl,*.xml .
 
 " Refresh ctags with recently edited files
 nnoremap <F7> :bufdo !ctags.exe -a --C++-kinds=+p --fields=+iaS --extra=q  %
@@ -468,13 +475,13 @@ set tags=tags,./tags
 " with plugin BufExplorer installed
 " nnoremap ² :BufExplorer<CR>
 "nnoremap  <Leader>q :BufExplorer<CR>
-nnoremap  <Leader>q :CtrlPBuffer<CR>
 
+"with CtrlP plugin
+nnoremap  <Leader>q :CtrlPBuffer<CR>
 
 " Save and restore session
 "nnoremap <F2> :mksession! ~/vim_session<CR>
 "nnoremap <F3> :source ~/vim_session<CR>
-
 
 if has('win32') || has('win64')
     " Quick .vimrc edit
@@ -785,11 +792,5 @@ if !exists("my_auto_commands_loaded")
   endif
 " End Large File }}}1
 
-" Custom settings to start in working environnement
-" when it is mounted
-" if not stay in current directory
-if isdirectory("C:\\dev\\mammo\\xt_rev40")
-    cd C:\dev\mammo\xt_rev40
-endif
 
 
