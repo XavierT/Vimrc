@@ -259,12 +259,10 @@ endif
 \ --exclude=*_cv.h\
 \ $*\ .\ 
 
- " if ag is available use it instead of grep
-if executable('ag')
-    " Note we extract the column as well as the file and line number
-    " -z will open gzipped files
-    set grepprg=ag\ --nogroup\ --nocolor\ --column\ --vimgrep\ --search-zip\ --ignore\ symTbl.c
-    ""set grepformat=%f:%l:%c%m
+if executable("rg")
+    " use Start to run search in background
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
 " End Grep options }}}2
@@ -384,11 +382,6 @@ noremap <silent> <Leader>ta :TagbarToggle<CR>
 " open and switch to quickfix window
 "noremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR>
 nnoremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR>
-
-" Version to be used with vim dispatch:
-" does not support jump to file in this version...
-"noremap <Leader>g :Dispatch grep -r --include=*.sm --include=*.c --include=*.cpp --include=*.h --exclude-dir=workspace --exclude-dir=tools --exclude=symTbl.c <space><C-r><C-w> . <CR>
-
 
 " Grep in current buffer only
 " Do not jump to quickfix window
