@@ -98,7 +98,7 @@ set autoindent
 set wildmenu
 set wildmode=longest:full,full
 set suffixes+=.bak,~,.out
-set wildignore+=*.o,*.toc,*.swp,*.aux,*.log,*.dvi,*.ps,*.exe,*.bin,.git,CVS,*.so,*.debug,*.make,CMakeLists.*,tools,build*xenomai,*.png,*.swf,*.dtd,*.cmake,*.RFL
+set wildignore+=*.o,*.toc,*.swp,*.aux,*.log,*.dvi,*.ps,*.exe,*.bin,.git,.svn,CVS,*.so,*.debug,*.make,build*xenomai,*.png,*.swf,*.dtd,*.cmake,*.RFL
 set complete-=i   " when using autocomplete do not look into all included file because it is too long
                   " with network file systeim...
 
@@ -142,11 +142,11 @@ if has("gui_running")
     if has('win32') || has('win64')
         " colorscheme looking like default eclipse theme
         " better to work with rest of the team using eclipse
-        set background=dark
+        set background=light
         colorscheme solarized
         "colorscheme eclipse
     else
-        set background=dark
+        set background=light
         colorscheme solarized
     endif
 else
@@ -187,7 +187,7 @@ endfunction
 if has("gui_running")
     " GUI is running or is about to start.
     " Maximize gvim window.
-    set lines=120 columns=90
+    set lines=120 columns=140
     " Lucida is nice but a bit sharp
     " set guifont=Lucida_Console:h10:cANSI
 
@@ -200,7 +200,7 @@ if has("gui_running")
     if has('win32') || has('win64')
         set guifont=Source_Code_Pro_Semibold:h11:cANSI
     else
-        set guifont=Ubuntu\ Mono\ 13
+        set guifont=Ubuntu\ Mono\ 11
     endif
 
 
@@ -245,7 +245,7 @@ endif
 \ --include=*.txt\
 \ --include=*.err\
 \ --include=*.md\
-\ --include=*.rs\
+\ --include=*postraces*\
 \ --exclude-dir=workspace\
 \ --exclude-dir=atlasdelivery\
 \ --exclude-dir=atlastools\
@@ -295,7 +295,7 @@ let g:tagbar_autofocus = 1  "autofocus on tagbar window when opening it
 
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	\ 'file': '\v\.(exe|so|dll|o|_cv\.cpp|_sv\.cpp|_cv\.h|_sv\.h)$',
+	\ 'file': '\v(\.(exe|so|dll|o))|(_cv\.cpp|_sv\.cpp|_cv\.h|_sv\.h)$',
 	\ }
 
 " Enable/Disable per-session caching: >
@@ -346,6 +346,10 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 " so disable it for now
 let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
+" I have not configured correctly the include list for syntastic
+" anyway
+let g:syntastic_cpp_no_include_search = 1
+
 " }}} 2 End Syntastic
 
 " Airline option
@@ -355,12 +359,6 @@ let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 let g:airline#extensions#whitespace#enabled = 0
 
 " }}} 2 End Airline
-
-" rust.vim
-" enable rustfmt on save
-" cargo install rustfmt to install it
-"let g:rustfmt_autosave = 1
-"too annoying to do it every time
 
 " End Plugin }}}1
 
@@ -466,10 +464,10 @@ vnoremap è }
 "nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.rb .
 
 " Using dispatch plugin
-nnoremap <F8> :Start!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.rs,*.h,*.js,*.idl,*.xml .
+nnoremap <F8> :Start!ctags.exe -R --C++-kinds=+p --fields=+liaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js,*.idl,*.xml .
 
 " Refresh ctags with recently edited files
-nnoremap <F7> :bufdo !ctags -a --C++-kinds=+p --fields=+iaS --extra=q  %
+nnoremap <F7> :bufdo !ctags.exe -a --C++-kinds=+p --fields=+iaS --extra=q  %
 " search first in current directory then file directory for tag file
 set tags=tags,./tags
 
@@ -605,17 +603,25 @@ function! s:tortoisesvn_graphicaldiff()
 endfunction
 
 " Test if the task file is already open in VIM
-function! s:TaskSwapExists()
-    set wildignore-=*.swp
+"function! s:TaskSwapExists()
+    "set wildignore-=*.swp
 
-    let s:exists =  filereadable(expand("$HOME/.task.otl.swp"))
+    "let s:exists =  filereadable(expand("$HOME/.task.otl.swp"))
 
-    set wildignore+=*.swp
+    "set wildignore+=*.swp
 
-    return s:exists
-endfunction
+    "return s:exists
+"endfunction
 
-command! TestF call s:TaskSwapExists()
+"command! TestF call s:TaskSwapExists()
+
+""Open task
+"" if task.otl.swp does not already exists
+"if  (argc() == 0)
+    "if( s:TaskSwapExists() == 0)
+         "Task
+    "endif
+"endif
 
 " End Functions }}}1
 
@@ -711,6 +717,7 @@ endfunction
 function! s:TXT_options()
    setlocal noundofile                "don't want to have temp file every time I open a txt file
    setlocal nospell                    " add spell checker for txt files
+   setlocal noexpandtab               "allow to use tab in txt and tsv file
    setlocal nolist                    "don't display whitespace in a text file 
 endfunction
 
@@ -724,13 +731,12 @@ endfunction
 autocmd BufRead,BufNewFile *.c call s:C_options()
 autocmd BufRead,BufNewFile *.cpp call s:CPP_options()
 autocmd BufRead,BufNewFile *.php call s:C_LIKE_options()
-autocmd BufRead,BufNewFile *.rs call s:C_LIKE_options()
 autocmd BufRead,BufNewFile *.perl,*.pl call s:C_LIKE_options()
 autocmd BufRead,BufNewFile *.xml call s:XML_options()
 autocmd BufRead,BufNewFile *.html call s:HTML_options()
 autocmd BufRead,BufNewFile *.js call s:Javascript_options()
 autocmd BufRead,BufNewFile *.py call s:PYTHON_options()
-autocmd BufRead,BufNewFile *.txt call s:TXT_options()
+autocmd BufRead,BufNewFile *.txt,*.tsv call s:TXT_options()
 " For makefile do not expand tab !
 autocmd BufRead,BufNewFile Makefile*,makefile* setlocal noexpandtab
 
@@ -789,8 +795,8 @@ if !exists("my_auto_commands_loaded")
 " Custom settings to start in working environnement
 " when it is mounted
 " if not stay in current directory
-if isdirectory("Z:\heroic")
-    cd Z:\heroic
+if isdirectory("C:\\dev\\mammo\\xt_rev40")
+    cd C:\dev\mammo\xt_rev40
 endif
 
 
