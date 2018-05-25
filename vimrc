@@ -458,10 +458,10 @@ vnoremap è }
 "nnoremap <F8> :!ctags -R --C++-kinds=+p --fields=+iaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.rb .
 
 " Using dispatch plugin
-nnoremap <F8> :Start!ctags -R --C++-kinds=+p --fields=+liaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js,*.idl,*.xml .
+nnoremap <F8> :Start!ctags.exe -R --C++-kinds=+p --fields=+liaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js,*.idl,*.xml .
 
 " Refresh ctags with recently edited files
-nnoremap <F7> :bufdo !ctags -a --C++-kinds=+p --fields=+iaS --extra=q  %
+nnoremap <F7> :bufdo !ctags.exe -a --C++-kinds=+p --fields=+iaS --extra=q  %
 " search first in current directory then file directory for tag file
 set tags=tags,./tags
 
@@ -597,25 +597,25 @@ function! s:tortoisesvn_graphicaldiff()
 endfunction
 
 " Test if the task file is already open in VIM
-function! s:TaskSwapExists()
-    set wildignore-=*.swp
+"function! s:TaskSwapExists()
+    "set wildignore-=*.swp
 
-    let s:exists =  filereadable(expand("$HOME/.task.otl.swp"))
+    "let s:exists =  filereadable(expand("$HOME/.task.otl.swp"))
 
-    set wildignore+=*.swp
+    "set wildignore+=*.swp
 
-    return s:exists
-endfunction
+    "return s:exists
+"endfunction
 
-command! TestF call s:TaskSwapExists()
+"command! TestF call s:TaskSwapExists()
 
-"Open task
-" if task.otl.swp does not already exists
-if  (argc() == 0)
-    if( s:TaskSwapExists() == 0)
-         Task
-    endif
-endif
+""Open task
+"" if task.otl.swp does not already exists
+"if  (argc() == 0)
+    "if( s:TaskSwapExists() == 0)
+         "Task
+    "endif
+"endif
 
 " End Functions }}}1
 
