@@ -1,6 +1,6 @@
 " Custom .vimrc
 "
-" Need Vim Version > 7.4
+" Need Vim Version > 8.0
 "
 " On Windows, rename .vim folder into vimfiles
 " and clone project in there.
@@ -10,6 +10,12 @@
 "   Jump to tag is "fj"
 "   Bufexplorer is <Leader>q
 "
+"  Use grep (recursively) on current word is <leader>g
+"  Use vimgrep in the same file is <leader>l
+"  Change current directory to current file is <leader>p
+"
+"  <ctrl+R> to open most recent file
+"  <ctrl+P> to open file in directory
 "
 " use zM to fold all
 " use zR to unfold all
