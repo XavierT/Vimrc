@@ -358,10 +358,14 @@ let g:syntastic_cpp_no_include_search = 1
 " }}} 2 End Syntastic
 
 " Airline option
+"
 " ------- {{{2
 
 " Disable check of mixed mode / trailing white space
 let g:airline#extensions#whitespace#enabled = 0
+
+" Display the buffer name in the tabline
+let g:airline#extensions#tabline#enabled = 1
 
 " }}} 2 End Airline
 
