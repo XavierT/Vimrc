@@ -332,7 +332,9 @@ let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_extensions = [ 'line', 'bookmardir']
 
 "most recent files
-nnoremap <C-r> :CtrlPMRUFiles<CR>
+" use m because r is used for redo
+" so this is the Most recent files
+nnoremap <C-m> :CtrlPMRUFiles<CR>
 
 
 " for some reason the above mapping open the MRU list in quickfix on enter
@@ -525,6 +527,7 @@ inoreabbrev teh the
 inoreabbrev ladate <C-R>=strftime("%A %d %B %Y")<CR>
 inoreabbrev lheure <C-R>=strftime("%H:%M")<CR>
 inoreabbrev thedate <C-R>=strftime("%Y-%m-%d")<CR>
+
 
 " End Abbreviations }}}2
 
