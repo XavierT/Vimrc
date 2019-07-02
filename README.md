@@ -1,4 +1,4 @@
- Personal Vim configuration files.
+ # Personal Vim configuration files
 
  Need Vim Version > 8.0
 
@@ -11,7 +11,7 @@
   Use vimgrep in the same file is <leader>l
   Change current directory to current file is <leader>p
 
-  <ctrl+R> to open most recent file
+  <,j>  to open most recent file
   <ctrl+P> to open file in directory
 
   On Linux/Cygwin      On Windows

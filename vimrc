@@ -334,7 +334,8 @@ let g:ctrlp_extensions = [ 'line', 'bookmardir']
 "most recent files
 " use m because r is used for redo
 " so this is the Most recent files
-nnoremap <C-m> :CtrlPMRUFiles<CR>
+nnoremap ,j :CtrlPMRUFiles<CR>
+
 
 
 " for some reason the above mapping open the MRU list in quickfix on enter
