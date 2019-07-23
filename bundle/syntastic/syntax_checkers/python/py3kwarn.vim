@@ -1,11 +1,11 @@
 "============================================================================
 "File:        py3kwarn.vim
-"Description: Syntax checking plugin for syntastic.vim
+"Description: Syntax checking plugin for syntastic
 "Authors:     Liam Curry <liam@curry.name>
 "
 "============================================================================
 
-if exists("g:loaded_syntastic_python_py3kwarn_checker")
+if exists('g:loaded_syntastic_python_py3kwarn_checker')
     finish
 endif
 let g:loaded_syntastic_python_py3kwarn_checker = 1
@@ -33,4 +33,4 @@ call g:SyntasticRegistry.CreateAndRegisterChecker({
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
-" vim: set et sts=4 sw=4:
+" vim: set sw=4 sts=4 et fdm=marker:

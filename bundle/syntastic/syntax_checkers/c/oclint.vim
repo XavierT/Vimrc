@@ -1,6 +1,6 @@
 "============================================================================
 "File:        oclint.vim
-"Description: Syntax checking plugin for syntastic.vim
+"Description: Syntax checking plugin for syntastic
 "Maintainer:  "UnCO" Lin <undercooled aT lavabit com>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
@@ -8,29 +8,24 @@
 "             Want To Public License, Version 2, as published by Sam Hocevar.
 "             See http://sam.zoy.org/wtfpl/COPYING for more details.
 "============================================================================
-"
-" The setting 'g:syntastic_oclint_config_file' allows you to define a file
-" that contains additional compiler arguments like include directories or
-" CFLAGS. The file is expected to contain one option per line. If none is
-" given the filename defaults to '.syntastic_oclint_config':
-"
-"   let g:syntastic_oclint_config_file = '.config'
 
-if exists("g:loaded_syntastic_c_oclint_checker")
+if exists('g:loaded_syntastic_c_oclint_checker')
     finish
 endif
 let g:loaded_syntastic_c_oclint_checker = 1
 
-if !exists('g:syntastic_oclint_config_file')
-    let g:syntastic_oclint_config_file = '.syntastic_oclint_config'
+if !exists('g:syntastic_c_oclint_sort')
+    let g:syntastic_c_oclint_sort = 1
 endif
 
 let s:save_cpo = &cpo
 set cpo&vim
 
 function! SyntaxCheckers_c_oclint_GetLocList() dict
+    let buf = bufnr('')
+
     let makeprg = self.makeprgBuild({
-        \ 'post_args': '-- -c ' . syntastic#c#ReadConfig(g:syntastic_oclint_config_file) })
+        \ 'post_args': '-- -c ' . syntastic#c#ReadConfig(syntastic#util#bufVar(buf, 'oclint_config_file'))})
 
     let errorformat =
         \ '%E%f:%l:%c: fatal error: %m,' .
@@ -55,8 +50,6 @@ function! SyntaxCheckers_c_oclint_GetLocList() dict
         let e['text'] = substitute(e['text'], '\m\C P[1-3] ', ': ', '')
     endfor
 
-    call self.setWantSort(1)
-
     return loclist
 endfunction
 
@@ -67,4 +60,4 @@ call g:SyntasticRegistry.CreateAndRegisterChecker({
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
-" vim: set et sts=4 sw=4:
+" vim: set sw=4 sts=4 et fdm=marker:
