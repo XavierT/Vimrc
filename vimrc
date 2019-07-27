@@ -1,4 +1,4 @@
-" Custom .vimrc
+min Custom .vimrc
 "
 " Need Vim Version > 8.0
 "
@@ -478,11 +478,13 @@ nnoremap è }
 vnoremap è }
 
 " Quick Tags Creation
-" Using Async plugin
-nnoremap <F8> :AsyncRun!ctags.exe -R --C++-kinds=+p --fields=+liaS --extra=q  --exclude="*tools*" --exclude=symTbl.c *.c,*.cpp,*.h,*.js,*.idl,*.xml .
+" Rust config to only generate file in .\src
+nnoremap <F7> :!ctags -R .\src
+
+nnoremap <F8> :!ctags -R .
 
 " Refresh ctags with recently edited files
-nnoremap <F7> :bufdo !ctags.exe -a --C++-kinds=+p --fields=+iaS --extra=q  %
+"nnoremap <F7> :bufdo !ctags.exe -a --C++-kinds=+p --fields=+iaS --extra=q  %
 " search first in current directory then file directory for tag file
 set tags=tags,./tags
 
