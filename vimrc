@@ -14,8 +14,9 @@
 "  Use vimgrep in the same file is <leader>l
 "  Change current directory to current file is <leader>p
 "
-"  <ctrl+R> to open most recent file
+"  <,r> to open most recent file
 "  <ctrl+P> to open file in directory
+"  <,p> to move to the current file directory
 "
 " use zM to fold all
 " use zR to unfold all
@@ -45,6 +46,10 @@ syntax on
 " *************************************
 " General
 " ------- {{{2
+
+" Custom map leader
+let g:mapleader = ","
+let g:maplocalleader = ","
 
 "display line number on the left column
 set number
@@ -334,7 +339,7 @@ let g:ctrlp_extensions = [ 'line', 'bookmardir']
 "most recent files
 " use m because r is used for redo
 " so this is the Most recent files
-nnoremap ,j :CtrlPMRUFiles<CR>
+nnoremap <Leader>r :CtrlPMRUFiles<CR>
 
 
 
@@ -383,16 +388,13 @@ let g:asyncrun_open = 6
 " Mapping
 " ==================== {{{1
 
-" Custom map leader
-let g:mapleader = ","
-let g:maplocalleader = ","
 
 " To easily copy paste from vim to external app
 " and vice / versa
 set clipboard=unnamed
 
 " Change directory to current open file
-nnoremap <leader>p :cd %:p:h<CR> 
+nnoremap <leader>p :cd %:p:h<CR>
 
 " Tagbar plugin mapping
 noremap <silent> <Leader>ta :TagbarToggle<CR>
