@@ -543,23 +543,6 @@ inoreabbrev thedate <C-R>=strftime("%Y-%m-%d")<CR>
 "******************************************************************************
 " Commands
 " ==================== {{{1
-"
-" Clearcase
-" expand only filename not fullpath and it works !
-" get history tree graphically
-command! Cleartree call s:clearcase_versionTree()
-" checkout
-command! Clearcheckout call s:clearcase_checkout()
-" graphical diff
-command! Cleardiff call s:clearcase_diff()
-" quick annotation
-command! Clearannotate call s:clearcase_annotate()
-" quick annotation
-command! Clearconfig call s:clearcase_config()
-
-" Task
-" to be used with vim outliner
-command! Task :silent e ~/task.otl
 
 "Split a small window on the right
 command! Split normal 30v
@@ -574,70 +557,9 @@ command! Svndiff call s:tortoisesvn_graphicaldiff()
 " Functions
 " ========= {{{1
 
-" It only works for file in current directory
-" because of differences between cygwin path in /cygdrive/z
-" and windows Z:
-"
-" on a pure linux installation using :p instead of :t should work
-function! s:clearcase_versionTree()
-    if has('win32') || has('win64')
-        execute "!start cleartool lsvtree -g ".expand("%:p")." & "
-    else
-        execute "!cleartool lsvtree -g ".expand("%:p")." & "
-    endif
-endfunction
-
-function! s:clearcase_checkout()
-    if has('win32') || has('win64')
-        execute "!start cleartool co -nc ".expand("%:p")
-    else
-        execute "!cleartool co -nc ".expand("%:p")
-    endif
-endfunction
-
-function! s:clearcase_diff()
-    if has('win32') || has('win64')
-        execute "!start cleartool diff -g -predecessor ".expand("%:p")
-    else
-        execute "!cleartool diff -g -predecessor ".expand("%:p")." & "
-    endif
-endfunction
-
-function! s:clearcase_annotate()
-    let filename=expand("%:p")
-    execute "!cleartool annotate ".filename." & "
-    execute "new "
-    execute "read ".filename.".ann"
-endfunction
-
-function! s:clearcase_config()
-    execute "!cleartool edcs "
-endfunction
-
 function! s:tortoisesvn_graphicaldiff()
     execute "!TortoiseProc.exe /command:diff /path:."
 endfunction
-
-" Test if the task file is already open in VIM
-"function! s:TaskSwapExists()
-    "set wildignore-=*.swp
-
-    "let s:exists =  filereadable(expand("$HOME/.task.otl.swp"))
-
-    "set wildignore+=*.swp
-
-    "return s:exists
-"endfunction
-
-"command! TestF call s:TaskSwapExists()
-
-""Open task
-"" if task.otl.swp does not already exists
-"if  (argc() == 0)
-    "if( s:TaskSwapExists() == 0)
-         "Task
-    "endif
-"endif
 
 " End Functions }}}1
 
@@ -768,9 +690,6 @@ autocmd BufRead,BufNewFile Makefile*,makefile* setlocal noexpandtab
 " check spelling of comments / not code ! Very cool
 "autocmd InsertEnter * setlocal spell
 "autocmd InsertLeave * setlocal nospell
-
-" Orocos specific
-autocmd BufRead,BufNewFile *.osd,*.ops set filetype=c
 
 " Vimoutliner filetype
 autocmd BufRead,BufNewFile *.otl set filetype=vo_base
