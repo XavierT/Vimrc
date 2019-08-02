@@ -1,4 +1,3 @@
-min Custom .vimrc
 "
 " Need Vim Version > 8.0
 "
