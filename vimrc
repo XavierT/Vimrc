@@ -153,11 +153,11 @@ if has("gui_running")
         " colorscheme looking like default eclipse theme
         " better to work with rest of the team using eclipse
         set background=dark
-        colorscheme solarized
+        colorscheme solarized8
         "colorscheme eclipse
     else
         set background=dark
-        colorscheme solarized
+        colorscheme solarized8
     endif
 else
     colorscheme zenburn
