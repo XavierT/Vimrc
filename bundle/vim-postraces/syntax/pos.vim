@@ -52,6 +52,7 @@ syn match posEvent "EV_.\{-} "
 
 syn match posPaddle "Paddle changed"
 syn match posIRType "IRType"
+syn match posButton "Button"
 
 " Match system reboot
 syn match posBoot ".*Starting isis.*"
@@ -73,7 +74,7 @@ hi def link posError       Error
 hi def link posEvent       Tag
 hi def link posPaddle      Tag
 hi def link posIRType      Tag
-
+hi def link posButton      Tag
 
 hi def link posBoot       InsertMode
 "hi def link celTodo        Todo
