@@ -160,7 +160,9 @@ if has("gui_running")
         colorscheme solarized8
     endif
 else
-    colorscheme zenburn
+    "colorscheme zenburn
+    set background=dark
+    colorscheme solarized8
 endif
 
 " Disable syntax highlighting for fold lines
