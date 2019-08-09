@@ -46,13 +46,20 @@ syn match posError ".*reportError errorCode=\d\+.*"
 " match the date at format YYYY-MM-DD HH:MM:SS.xxx 
 syn match posDate "\d\{4}-\d\{2}-\d\{2} \d\{2}:\d\{2}:\d\{2}\.\d\{3}" 
 
-" Match Event for quick overview
+" Match corba Event for quick overview
 syn match posEvent "EV_.\{-}$"
 syn match posEvent "EV_.\{-} "
+
+" lower level event are called EVENT
+syn match posEvent "EVENT_.\{-}"
+syn match posEvent "EVENT_.\{-}\."
 
 syn match posPaddle "Paddle changed"
 syn match posIRType "IRType"
 syn match posButton "Button"
+
+" match commands starting/stopping with multiples stars
+syn match posMotion "\*\*\*\*\*\*\* .* \*\*\*\*\*\*\*$"
 
 " Match system reboot
 syn match posBoot ".*Starting isis.*"
@@ -75,6 +82,7 @@ hi def link posEvent       Tag
 hi def link posPaddle      Tag
 hi def link posIRType      Tag
 hi def link posButton      Tag
+hi def link posMotion      Tag
 
 hi def link posBoot       InsertMode
 "hi def link celTodo        Todo

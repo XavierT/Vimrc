@@ -10,7 +10,7 @@
 "   Bufexplorer is <Leader>q
 "
 "  Use grep (recursively) on current word is <leader>g
-"  Use vimgrep in the same file is <leader>l
+"  Use grep in the same file is <leader>f
 "  Change current directory to current file is <leader>p
 "
 "  <,r> to open most recent file
@@ -164,6 +164,16 @@ else
     set background=dark
     colorscheme solarized8
 endif
+
+if has("win32") || has("win64")
+
+  "On windows, if called from cygwin or msys, the shell needs to be changed to cmd.exe
+  " or some paths or plugin are broken
+  if &shell=~#'bash.exe$'
+    set shell=$COMSPEC " sets shell to correct path for cmd.exe
+  endif
+endif
+
 
 " Disable syntax highlighting for fold lines
 " set highlight+=f-,F- 
@@ -404,6 +414,7 @@ noremap <silent> <Leader>ta :TagbarToggle<CR>
 " open and switch to quickfix window
 nnoremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR>
 
+
 if executable("rg")
     " <cwd> search the root directory with a .git/.svn/.darcs
     " current directory if none found
@@ -413,7 +424,7 @@ endif
 
 " Grep in current buffer only
 " Do not jump to quickfix window
-noremap <Leader>l :vimgrep<space><C-r><C-w><space>%<CR>:g/<C-r><C-w>//<CR>:copen<CR><C-W>t
+noremap <Leader>f :vimgrep<space><C-r><C-w><space>%<CR>:g/<C-r><C-w>//<CR>:copen<CR><C-W>t
 
 " toggle highlight search highlight
 noremap <leader>h :noh<cr>
