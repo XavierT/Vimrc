@@ -416,10 +416,7 @@ nnoremap <Leader>g :grep<space><C-r><C-w><CR>:copen<CR>
 
 
 if executable("rg")
-    " <cwd> search the root directory with a .git/.svn/.darcs
-    " current directory if none found
-    " see asyncrun help
-    noremap <Leader>g :AsyncRun! rg --vimgrep --no-heading <C-R><C-W> <CR>
+    noremap <Leader>g :Rg <CR>
 endif
 
 " Grep in current buffer only
