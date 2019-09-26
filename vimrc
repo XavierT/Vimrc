@@ -514,6 +514,12 @@ if has('win32') || has('win64')
     nmap <silent> <Leader>u :e $MYVIMRC<CR>
     " Quick .vimrc reload
     nmap <silent> <Leader>v :so $MYVIMRC<CR>
+
+    " when using nvim, there is a further indirection because vimrc is sourced
+    " in init.vim so have to manage the special case
+    " Quick .vimrc edit
+    nmap <silent> <Leader>u :e ~/vimfiles/vimrc<CR>
+    
 endif
 
 if has("unix")
