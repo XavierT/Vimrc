@@ -578,6 +578,47 @@ function! s:tortoisesvn_graphicaldiff()
     execute "!TortoiseProc.exe /command:diff /path:."
 endfunction
 
+let g:selection_list = []
+"transform list into argument separated by \| (OR)
+let g:search_string = ""
+
+" get the visual selection into a method
+function! Get_visual_selection()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
+
+function! Add_to_search()
+   call add(g:selection_list, Get_visual_selection())
+   echo g:selection_list
+
+   let @b = join(g:selection_list,'\|')
+
+   "expand full path name
+   execute 'vimgrep "'.join(g:selection_list,'\|').'" '.fnameescape(expand('%'))
+   execute 'copen'
+endfunction
+
+" clear temporary global variable
+function! Clear_search()
+    let g:selection_list = []
+    let g:search_string = ""
+
+    "clear the quickfix window
+    call setqflist([])
+endfunction
+
+noremap  <Leader>a :call Add_to_search() <CR>
+noremap  <Leader>c :call Clear_search() <CR>
+
 " End Functions }}}1
 
 " *****************************************************************************
