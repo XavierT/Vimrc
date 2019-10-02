@@ -13,9 +13,14 @@
 "  Use grep in the same file is <leader>f
 "  Change current directory to current file is <leader>p
 "
+"  To add to a search list in the current files :
+"  visual selection --> then <leader>,a
+"  to clean the search list --> <leader>,c
+"
+"
 "  <,r> to open most recent file
 "  <ctrl+P> to open file in directory
-"  <,p> to move to the current file directory
+"
 "
 " use zM to fold all
 " use zR to unfold all
@@ -399,6 +404,10 @@ let g:asyncrun_open = 6
 " Mapping
 " ==================== {{{1
 
+" to escape easily from nvim terminal
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+endif
 
 " To easily copy paste from vim to external app
 " and vice / versa
@@ -518,7 +527,9 @@ if has('win32') || has('win64')
     " when using nvim, there is a further indirection because vimrc is sourced
     " in init.vim so have to manage the special case
     " Quick .vimrc edit
-    nmap <silent> <Leader>u :e ~/vimfiles/vimrc<CR>
+    if has('nvim')
+        nmap <silent> <Leader>u :e ~/vimfiles/vimrc<CR>
+    endif
     
 endif
 
