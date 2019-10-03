@@ -47,6 +47,12 @@ execute pathogen#infect()
 filetype plugin indent on
 syntax on
 
+
+if has('nvim')
+    "preview somw replacement in main window for substitude commands
+    set inccommand=nosplit
+endif
+
 " *************************************
 " General
 " ------- {{{2
@@ -404,8 +410,8 @@ let g:asyncrun_open = 6
 " Mapping
 " ==================== {{{1
 
-" to escape easily from nvim terminal
 if has('nvim')
+    " to escape easily from nvim terminal
     tnoremap <Esc> <C-\><C-n>
 endif
 
