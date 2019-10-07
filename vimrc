@@ -80,7 +80,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 
 " Formattage
-set textwidth=80
+set textwidth=72             " 72 to be compliant with our commit messages size
 set formatoptions=tcqnol     " automatic formatting options
 set smarttab
 set nojoinspaces             " insert only one space after. , ! when using join command J
