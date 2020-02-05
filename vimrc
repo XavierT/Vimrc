@@ -26,6 +26,22 @@
 " use zR to unfold all
 " see ':help folding' for more information
 "
+"
+" *****************************************************************************
+" Compatibility with Nvim, to share the same configuration
+"
+" On windows, in $HOME>AppData>Local>nvim
+"
+" create a init.vim file with the following content (minus ")
+"
+" set runtimepath^=~/vimfiles runtimepath+=~/vimfiles/after
+" let &packpath=&runtimepath
+" source ~/vimfiles/vimrc
+"
+"
+" create a ginit.vim file with the following content (minus ") to force
+" the font used by the nvim-qt client
+" GuiFont Fira Mono:h11:cANSI:qDRAFT
 " *****************************************************************************
 
 
@@ -231,7 +247,8 @@ if has("gui_running")
     " Try out Ubunto mono font
     "
     if has('win32') || has('win64')
-        set guifont=Source_Code_Pro_Semibold:h11:cANSI
+        "set guifont=Source_Code_Pro_Semibold:h11:cANSI
+        set guifont=Fira_Mono:h11:cANSI:qDRAFT
     else
         set guifont=Ubuntu\ Mono\ 11
     endif
@@ -393,7 +410,7 @@ let g:syntastic_cpp_no_include_search = 1
 let g:airline#extensions#whitespace#enabled = 0
 
 " Display the buffer name in the tabline
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 
 " }}} 2 End Airline
 
