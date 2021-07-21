@@ -64,6 +64,9 @@ filetype plugin indent on
 syntax on
 
 
+" enable mouse support / scrollwheel in normal mode
+set mouse=n
+
 if has('nvim')
     "preview somw replacement in main window for substitude commands
     set inccommand=nosplit
