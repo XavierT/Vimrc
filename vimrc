@@ -331,6 +331,19 @@ let g:rustfmt_command = '~/.cargo/bin/rustfmt'
 "autoformat on save
 let g:rustfmt_autosave = 1
 
+" vimwiki/vimwiki
+" location of vimwiki files
+let g:vimwiki_list = [{'path': '~/Box Sync/Documents/01_activity_tracking/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+
+"Additional special config for vimwiki
+
+function! VimwikiFindAllIncompleteTasks()
+  VWS /* \[ \]/
+  lopen
+endfunction
+
+nmap <Leader>wa :call VimwikiFindAllIncompleteTasks()<CR>
+
 "Tagbar
 " ------- {{{2
 let g:tagbar_autofocus = 1  "autofocus on tagbar window when opening it
