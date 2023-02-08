@@ -17,15 +17,14 @@
 "  visual selection --> then <leader>,a
 "  to clean the search list --> <leader>,c
 "
-"
 "  <,r> to open most recent file
 "  <ctrl+P> to open file in directory
-"
+"  <,ww> to open vimwiki root
+"  <,l> to open activity log
 "
 " use zM to fold all
 " use zR to unfold all
 " see ':help folding' for more information
-"
 "
 " *****************************************************************************
 " Compatibility with Nvim, to share the same configuration
@@ -41,7 +40,7 @@
 "
 " create a ginit.vim file with the following content (minus ") to force
 " the font used by the nvim-qt client
-" GuiFont Fira Mono:h11:cANSI:qDRAFT
+" GuiFont! Fira Mono:h11:cANSI:qDRAFT
 " *****************************************************************************
 
 
@@ -335,6 +334,9 @@ let g:rustfmt_autosave = 1
 " location of vimwiki files
 let g:vimwiki_list = [{'path': '~/Box Sync/Documents/01_activity_tracking/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
+" enable folding in vimwiki
+let g:vimwiki_folding = 'syntax'
+
 "Additional special config for vimwiki
 
 function! VimwikiFindAllIncompleteTasks()
@@ -343,6 +345,10 @@ function! VimwikiFindAllIncompleteTasks()
 endfunction
 
 nmap <Leader>wa :call VimwikiFindAllIncompleteTasks()<CR>
+
+" open activity log file on <leader> l in normal mode
+nmap <Leader>l :e  $HOME\Box Sync\Documents\01_activity_tracking\vimwiki\activity_log.md<CR>
+
 
 "Tagbar
 " ------- {{{2
