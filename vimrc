@@ -26,6 +26,8 @@
 " use zR to unfold all
 " see ':help folding' for more information
 "
+" use :helptags ALL to regenerate all documentation after an update
+"
 " *****************************************************************************
 " Compatibility with Nvim, to share the same configuration
 "
@@ -59,8 +61,15 @@ execute pathogen#infect()
 " To regenerate all documentation in plugin run :Helptags provide by pathogen
 
 " Syntax highlighting and filetypes
-filetype plugin indent on
-syntax on
+if !has('nvim')
+    filetype plugin indent on
+    syntax on
+endif
+
+if has('nvim')
+    filetype plugin indent on
+    syntax on
+endif
 
 
 " enable mouse support / scrollwheel in normal mode
@@ -249,8 +258,8 @@ if has("gui_running")
     " Try out Ubunto mono font
     "
     if has('win32') || has('win64')
-        "set guifont=Source_Code_Pro_Semibold:h11:cANSI
-        set guifont=Fira_Mono:h11:cANSI:qDRAFT
+        "set guifont=Source\ Code\ Pro:h11:cANSI
+        set guifont=Consolas:h11
     else
         set guifont=Ubuntu\ Mono\ 11
     endif
