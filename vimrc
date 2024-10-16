@@ -27,6 +27,8 @@
 " see ':help folding' for more information
 "
 " use :helptags ALL to regenerate all documentation after an update
+" 
+" use/modify _.snippets to add custom snippets for all files (TAB to " complete)
 "
 " *****************************************************************************
 " Compatibility with Nvim, to share the same configuration

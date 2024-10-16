@@ -3,6 +3,7 @@
 # (c) holds no legal value ;)
 snippet c)
 	`&enc[:2] == "utf" ? "©" : "(c)"` Copyright `strftime("%Y")` ${1:`g:snips_author`}. All Rights Reserved.${2}
+
 snippet date
 	`strftime("%Y-%m-%d")`
 snippet mom
@@ -18,3 +19,72 @@ snippet mom
 	${3}
 
 	Conclusions / Action Points:
+
+
+snippet SPR
+	Reproducibility / Scope description: 
+	==================================== 
+	${1:How to reproduce the issue, occurence, problem description}
+
+	 Root cause of failure / Reason for change: 
+	========================================== 
+	${2:why}
+
+	Solution: 
+	========================================== 
+	- Description: 
+	${3:What have you changed}
+
+	- Feature Impact analysis:
+	${4:Which feature has been impacted : for example, 2D, 3D, Calibration, Logging, etc}
+
+	- Document Impact analysis: 
+	${5:Add documentation ref + SPR: for example Motion SDD DOCXXXXXX  (SPR HCSDM00XXXXX)}
+
+	- Verification Impact proposal: 
+	${6:SPR verification is enough or Non-regression tests based on impact analysis to be executed after integration.}
+
+	- Any FMEA or DFMEA impact ? []
+	${7:Yes with impacted document name, or no with rationale}
+
+
+	${8:Remove Section if no SW modification}
+	================================================= 
+	SW Modifications: 
+	================================================= 
+	Merge request : https://gitlab.apps.ge-healthcare.net/MammoPositionerSW/[Complete with merge request ID path]
+	Commit ID: [Short Commit ID of your change on the main dev branch, after potential rebase]
+
+	${9:Remove Section if no Document modification}
+	================================================= 
+	DOC Modifications:
+	================================================= 
+	Date: 
+	Author:
+
+	- Modified Documents: [Document Name] [Doors Baseline]
+	- Object modified :
+		ADDED[object ID] : [reason for addition]
+		Removed [object ID] : [reason for removal]
+		[object ID] replaced by [object ID] : [reason for change]
+		[ Also add tag/milestone/modification]
+	- Document Review : 
+	  * Date: 
+	  * Participants: 
+	  * Logs:
+	Document review OK 
+
+	${10:Remove Section if no test (for doc modification only}
+	----------------------------------------------------------------
+	Resolver Tests executed to check the issue has been fixed :
+	==========================================
+	- Date: 
+	- System: Cell, Simu
+	- Config: 
+	- Operator: 
+	- List of tests: 
+	Test Setup: 
+	Expected result:
+	Observed outcome:
+	Conclusion : [Pass/Fail]
+$0
